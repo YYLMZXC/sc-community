@@ -1,0 +1,39 @@
+<h2><a href="/com/mods/desclist/{$mid}">返回更新日志列表</a></h2>
+    <fieldset class="staff_info">
+    <legend>修改【v{$version}】更新日志</legend>
+    <fieldset class="staff_info">
+    <legend>更新的版本</legend>
+    <input type="text" id="modver" placeholder="1.0.0" value="{$version}">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>内容</legend>
+    <div id="editor"></div>
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>Submit</legend>
+    <input type="button" id="sub" onclick="tijiao()" style="font-size:18px;" value="提交">
+    </fieldset>
+    </fieldset>
+    
+    <script>
+        var editor=loadEditor("editor",{height:400});
+        editor.ready(function(){
+            editor.setContent(Base64.decode('{$description}'));
+        });
+    </script>
+    <script>
+    function tijiao(){
+        Ajax("/com/api/mods/editdesc",{
+            'id':{$id},
+            'modver':$("#modver").val(),
+            'desc':editor.getContent()
+        },function(res){
+            if(res.code==200){
+                layer.msg("修改成功");
+                setTimeout(function(){window.location.href="/com/mods/desclist/{$mid}"; },1500);
+            }else{
+                layer.msg(res.msg);
+            }
+        });
+    }
+    </script>

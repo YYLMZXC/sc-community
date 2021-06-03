@@ -1,0 +1,17 @@
+<?php
+$itemid=intval($urlparams['_p0']);
+$itemdata=$msql->table("modwords")->where(['id'=>$itemid])->find();
+$modid=intval($itemdata['modid']);
+$page=intval(I('page'));
+$data=$msql->table('modlist')->where(['id'=>$modid])->find();
+if($data==false)scbbs::error("参数错误");
+$outconfig['flagshtml']=$scbbs->getModsFlags($data['modflags']);
+$outconfig['modname']=$data['fullname'];
+$outconfig['id']=$modid;
+$outconfig['moddesc']=$data['description'];
+//获得release列表
+$itemlist=$msql->table("modrelease")->where(['modid'=>$modid])->order('addTime','desc')->limit($page*5,5)->select();
+$list="";
+$outconfig['title']=$itemdata['title'];
+$outconfig['content']=base64_decode($itemdata['content']);
+xxfunc::show("worditem","mods",$outconfig,true);

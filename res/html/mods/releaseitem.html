@@ -1,0 +1,204 @@
+<div class="release-entry">
+
+    <div class="release pt-2 pt-md-0 pb-3 pb-md-0 clearfix label-latest">
+        <div
+            class="d-none d-md-block flex-wrap flex-items-center col-12 col-md-3 col-lg-2 px-md-3 pb-1 pb-md-4 pt-md-4 float-left text-md-right v-align-top">
+            <div class="flex-auto flex-self-start">
+                {$lastest}
+            </div>
+            <ul class="d-none d-md-block mt-2 list-style-none">
+                <li class="d-block mb-1">
+                    <a href="#" class="muted-link css-truncate"
+                        title="v4.31.0">
+                        <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16"
+                            height="16" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
+                            </path>
+                        </svg>
+                        <span class="css-truncate-target" style="max-width: 125px">{$version}</span>
+                    </a>
+                </li>
+
+                <li class="d-block mb-1">
+                    <a href="#"
+                        class="muted-link">
+                        <svg class="octicon octicon-git-commit" viewBox="0 0 16 16" version="1.1"
+                            width="16" height="16" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M10.5 7.75a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm1.43.75a4.002 4.002 0 01-7.86 0H.75a.75.75 0 110-1.5h3.32a4.001 4.001 0 017.86 0h3.32a.75.75 0 110 1.5h-3.32z">
+                            </path>
+                        </svg>
+                        <code>{$versionmd}</code>
+                    </a>
+                </li>
+                <li class="d-block mb-1">
+
+                    <details
+                        class="dropdown dropdown-signed-commit details-reset details-overlay js-dropdown-details d-inline-block ml-1">
+                        <summary class="signed-commit-badge signed-commit-badge-medium verified"
+                            title="Commit signature">
+                            已验证
+                        </summary>
+                        <div class="anim-scale-in" style="position: relative; z-index: 200;">
+                            <div class="dropdown-menu dropdown-menu-s py-0 text-gray-dark text-left">
+                                <div class="signed-commit-header TableObject">
+                                    <div class="TableObject-item">
+                                        <svg height="32" class="octicon octicon-verified mr-2"
+                                            viewBox="0 0 24 24" version="1.1" width="32"
+                                            aria-hidden="true">
+                                            <path
+                                                d="M17.03 9.78a.75.75 0 00-1.06-1.06l-5.47 5.47-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6-6z">
+                                            </path>
+                                            <path fill-rule="evenodd"
+                                                d="M14.136 1.2a3.61 3.61 0 00-4.272 0L8.489 2.21a2.11 2.11 0 01-.929.384l-1.686.259a3.61 3.61 0 00-3.021 3.02L2.594 7.56a2.11 2.11 0 01-.384.929L1.2 9.864a3.61 3.61 0 000 4.272l1.01 1.375c.2.274.333.593.384.929l.259 1.686a3.61 3.61 0 003.02 3.021l1.687.259c.336.051.655.183.929.384l1.375 1.01a3.61 3.61 0 004.272 0l1.375-1.01a2.11 2.11 0 01.929-.384l1.686-.259a3.61 3.61 0 003.021-3.02l.259-1.687a2.11 2.11 0 01.384-.929l1.01-1.375a3.61 3.61 0 000-4.272l-1.01-1.375a2.11 2.11 0 01-.384-.929l-.259-1.686a3.61 3.61 0 00-3.02-3.021l-1.687-.259a2.11 2.11 0 01-.929-.384L14.136 1.2zm-3.384 1.209a2.11 2.11 0 012.496 0l1.376 1.01a3.61 3.61 0 001.589.658l1.686.258a2.11 2.11 0 011.765 1.766l.26 1.686a3.61 3.61 0 00.657 1.59l1.01 1.375a2.11 2.11 0 010 2.496l-1.01 1.376a3.61 3.61 0 00-.658 1.589l-.258 1.686a2.11 2.11 0 01-1.766 1.765l-1.686.26a3.61 3.61 0 00-1.59.657l-1.375 1.01a2.11 2.11 0 01-2.496 0l-1.376-1.01a3.61 3.61 0 00-1.589-.658l-1.686-.258a2.11 2.11 0 01-1.766-1.766l-.258-1.686a3.61 3.61 0 00-.658-1.59l-1.01-1.375a2.11 2.11 0 010-2.496l1.01-1.376a3.61 3.61 0 00.658-1.589l.258-1.686a2.11 2.11 0 011.766-1.766l1.686-.258a3.61 3.61 0 001.59-.658l1.375-1.01z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div class="TableObject-item--primary">
+                                        经过<strong
+                                            class="signed-commit-verified-label">绿色官方</strong>认证，无病毒，安全
+                                    </div>
+                                </div>
+
+
+                                <div class="signed-commit-footer">
+                                    <span class="d-block">Md5: <span
+                                            class="text-gray">{$md}</span></span>
+                                    <a
+                                        href="https://docs.github.com/articles/signing-commits-with-gpg/">学习如何认证</a>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+
+                </li>
+            </ul>
+        </div><!-- /.meta -->
+
+        <div
+            class="col-12 col-md-9 col-lg-10 px-md-3 py-md-4 release-main-section commit open float-left">
+            <div class="release-header">
+                <div class="d-flex flex-items-start">
+                    <div class="f1 flex-auto min-width-0 text-normal">
+                        <a href="#">{$version}</a>
+                    </div>
+
+                   {$lastest}
+
+                </div>
+                <ul class="d-flex d-md-none flex-items-center mb-1 list-style-none">
+                    <li class="d-block mr-2">
+                        <a href="#" class="muted-link css-truncate"
+                            title="v4.31.0">
+                            <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1"
+                                width="16" height="16" aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z">
+                                </path>
+                            </svg>
+                            <span class="css-truncate-target" style="max-width: 125px">{$version}</span>
+                        </a>
+                    </li>
+
+                    <li class="d-block mr-2 flex-auto">
+                        <a href="#"
+                            class="muted-link">
+                            <svg class="octicon octicon-git-commit" viewBox="0 0 16 16" version="1.1"
+                                width="16" height="16" aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M10.5 7.75a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm1.43.75a4.002 4.002 0 01-7.86 0H.75a.75.75 0 110-1.5h3.32a4.001 4.001 0 017.86 0h3.32a.75.75 0 110 1.5h-3.32z">
+                                </path>
+                            </svg>
+                            <code>{$versionmd}</code>
+                        </a>
+                    </li>
+                    <li>
+
+                        <details
+                            class="dropdown dropdown-signed-commit details-reset details-overlay js-dropdown-details d-inline-block ml-1">
+                            <summary class="signed-commit-badge signed-commit-badge-small verified"
+                                title="Commit signature">
+                                已验证
+                            </summary>
+                            <div class="anim-scale-in" style="position: relative; z-index: 200;">
+                                <div
+                                    class="dropdown-menu dropdown-menu-sw py-0 text-gray-dark text-left">
+                                    <div class="signed-commit-header TableObject">
+                                        <div class="TableObject-item">
+                                            <svg height="32" class="octicon octicon-verified mr-2"
+                                                viewBox="0 0 24 24" version="1.1" width="32"
+                                                aria-hidden="true">
+                                                <path
+                                                    d="M17.03 9.78a.75.75 0 00-1.06-1.06l-5.47 5.47-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6-6z">
+                                                </path>
+                                                <path fill-rule="evenodd"
+                                                    d="M14.136 1.2a3.61 3.61 0 00-4.272 0L8.489 2.21a2.11 2.11 0 01-.929.384l-1.686.259a3.61 3.61 0 00-3.021 3.02L2.594 7.56a2.11 2.11 0 01-.384.929L1.2 9.864a3.61 3.61 0 000 4.272l1.01 1.375c.2.274.333.593.384.929l.259 1.686a3.61 3.61 0 003.02 3.021l1.687.259c.336.051.655.183.929.384l1.375 1.01a3.61 3.61 0 004.272 0l1.375-1.01a2.11 2.11 0 01.929-.384l1.686-.259a3.61 3.61 0 003.021-3.02l.259-1.687a2.11 2.11 0 01.384-.929l1.01-1.375a3.61 3.61 0 000-4.272l-1.01-1.375a2.11 2.11 0 01-.384-.929l-.259-1.686a3.61 3.61 0 00-3.02-3.021l-1.687-.259a2.11 2.11 0 01-.929-.384L14.136 1.2zm-3.384 1.209a2.11 2.11 0 012.496 0l1.376 1.01a3.61 3.61 0 001.589.658l1.686.258a2.11 2.11 0 011.765 1.766l.26 1.686a3.61 3.61 0 00.657 1.59l1.01 1.375a2.11 2.11 0 010 2.496l-1.01 1.376a3.61 3.61 0 00-.658 1.589l-.258 1.686a2.11 2.11 0 01-1.766 1.765l-1.686.26a3.61 3.61 0 00-1.59.657l-1.375 1.01a2.11 2.11 0 01-2.496 0l-1.376-1.01a3.61 3.61 0 00-1.589-.658l-1.686-.258a2.11 2.11 0 01-1.766-1.766l-.258-1.686a3.61 3.61 0 00-.658-1.59l-1.01-1.375a2.11 2.11 0 010-2.496l1.01-1.376a3.61 3.61 0 00.658-1.589l.258-1.686a2.11 2.11 0 011.766-1.766l1.686-.258a3.61 3.61 0 001.59-.658l1.375-1.01z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                        <div class="TableObject-item--primary">
+                                            经过官方
+                                            <strong class="signed-commit-verified-label">绿色认证
+                                                </strong>
+                                        </div>
+                                    </div>
+                                    <div class="signed-commit-footer">
+                                        <span class="d-block">Md5: <span
+                                                class="text-gray">{$md}</span></span>
+                                        <a
+                                            href="https://docs.github.com/articles/signing-commits-with-gpg/">学习如何认证</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+
+                    </li>
+                </ul>
+
+                <p class="f5 text-gray mt-2 mt-md-1 mb-2 mb-md-4">
+                <a class="d-inline-block"  href="/com/user/{$uid}">{imgsrc}<img class="avatar avatar-user" src="{$imgsrc}" width="20" height="20" alt="{$nickname}">{/imgsrc}</a>
+                <a class="text-bold text-gray" 
+                        href="/com/user/{$uid}">{$nickname}</a>
+                    发布
+                    <relative-time class="no-wrap"
+                        title="{$time}">{$time}</relative-time>
+                </p>
+            </div>
+            
+            <details class="details-reset Details-element border-top pt-3 mt-4 mb-2 mb-md-4" open="">
+                <summary>
+                    <div class="d-flex flex-items-center">
+                        <span class="mr-2 Details-content--closed"><svg
+                                class="octicon octicon-triangle-right" viewBox="0 0 16 16" version="1.1"
+                                width="16" height="16" aria-hidden="true">
+                                <path
+                                    d="M6.427 4.427l3.396 3.396a.25.25 0 010 .354l-3.396 3.396A.25.25 0 016 11.396V4.604a.25.25 0 01.427-.177z">
+                                </path>
+                            </svg></span>
+                        <span class="mr-2 Details-content--open"><svg
+                                class="octicon octicon-triangle-down" viewBox="0 0 16 16" version="1.1"
+                                width="16" height="16" aria-hidden="true">
+                                <path
+                                    d="M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z">
+                                </path>
+                            </svg></span>
+                        <span class="text-bold">更新内容</span>
+                        <span title="2" class="Counter ml-1">{$count}</span>
+                    </div>
+                </summary>
+                <div class="Box Box--condensed mt-3">
+
+            
+            
+            <div id="markdownbody">
+                {$markdownbody}
+            </div>
+                </div>
+            </details>
+                {$details}
+
+        </div><!-- /.release-body -->
+    </div><!-- /.release -->
+
+</div>

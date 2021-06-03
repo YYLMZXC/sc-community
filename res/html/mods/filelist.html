@@ -1,0 +1,12 @@
+<h2><a href="/com/mods/desclist/{$modid}">返回更新日志</a></h2>
+<ul>
+    {$lishtml}
+    </ul>
+    
+<script>
+    function delMod(id){
+        if(confirm("你确定要删除该文件吗?")){
+            window.location.href="/com/mods/delete/"+id+"?type=3";
+        }
+    }
+</script>

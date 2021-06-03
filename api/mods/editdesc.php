@@ -1,0 +1,19 @@
+<?php
+    using("XString");
+    $modver=I('modver');
+    $desc=I('desc');
+    $did=intval(I('id'));
+    $hashCode=XString::hashCode($modver);
+    $check=M("modrelease")->where(['id'=>$did,'uid'=>S('uid')])->find();
+    $modid=$check['modid'];
+    if(!empty($check)){
+        if(empty($modver)||empty($desc)){
+            PR(300,"版本或说明不能为空");
+        }else{
+            M('modlist')->where(['id'=>$modid])->save(['lastupdatetime'=>time()]);
+            M('modrelease')->where(['id'=>$did])->save(['version'=>$modver,'hash'=>$hashCode,'description'=>$desc]);
+            PR(200);
+        }
+    }else{
+        PR(300,"该版本的更新日志已被删除");
+    }

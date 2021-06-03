@@ -1,0 +1,37 @@
+<div component="categories/category" data-cid="{$cid}" class="col-md-3 col-xs-6 animated" style="animation-delay: {$animationdelay}s;">
+		<div class="category-card" style="background-color: {$color}; color: {$titlecolor};">
+			<a href="{$WEBPATH}/cate/{$id}">
+				<div class="category-card-body">
+					<ul class="category-counts pull-right">
+	                    <li>
+	                        <i class="fa fa-book"></i><span class="human-readable-number" title="{$listcount}">{$listcount}</span>
+	                    </li>
+	                    <li>
+	                        <i class="fa fa-pencil"></i><span class="human-readable-number" title="{$replycount}">{$replycount}</span>
+	                    </li>
+	                </ul>
+					<h4>
+						{$name}
+								{$cateflag}
+								
+					</h4>
+					<div class="category-description"><p>{$description}</p>
+</div>
+				</div>
+			</a>
+			{ifbbs}
+			<div class="category-card-footer">
+				<div component="category/posts">
+					<div class="pull-left hidden-xs user-avatar">
+				    	<a href="{$WEBPATH}/user/{$uid}">
+				    	    {$headimg}
+				    	</a>
+					</div>
+					<div class="topic-title">
+						<a href="{$WEBPATH}/bbs/{$bid}">{$bbsname}</a>
+					</div>
+				</div>
+			</div>
+			{/ifbbs}
+		</div>
+	</div>

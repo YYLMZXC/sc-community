@@ -1,0 +1,41 @@
+<!--单个帖子布局-->
+<div component="category/topic" class="lv-item media row clearfix category-item unread" data-tid="1633" data-index="19"
+    data-cid="2" itemprop="itemListElement">
+    <meta itemprop="name" content="{$catename}">
+    <div class="pull-left hidden-xs">
+        <a href="{$WEBPATH}/user/{$uid}">
+            {$usericon}
+        </a>
+
+    </div>
+    <div class="media-body">
+        <div class="lv-title" component="topic/header">
+            <strong>
+                {$bbsflags}
+                <a href="{$WEBPATH}/bbs/{$bid}"><span class="topic-title">{$title}</span></a>
+            </strong>
+        </div>
+        <small>
+            回复 <span class="human-readable-number" title="{$replies}">{$replies}</span> | 浏览 <span
+                class="human-readable-number" title="{$views}">{$views}</span> |
+
+            <a href="{$WEBPATH}/user/{$uid}"><strong>{$username}</strong></a>
+            <span class="timeago" title="{$addTime}" datetime="{$addTime}">{$addTime}</span>
+        </small>
+        <div class="lv-attrs hidden-xs">
+
+        </div>
+        <div class="lv-actions actions hidden-xs">
+            <ul>
+                <li class="lv-small">
+                    <a href="{$WEBPATH}/user/{$uid}">
+                        {$usericon}
+                    </a>
+                    <a href="{$WEBPATH}/bbs/{$bid}">
+                        <span class="timeago" title="{$addTime}" datetime="{$addTime}">{$addTime}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

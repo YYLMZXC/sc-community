@@ -1,0 +1,24 @@
+<?php
+using("model/ModList");
+$modid=intval($urlparams['_p0']);
+$do=I('do');
+$outconfig['modid']=$modid;
+$modinfo=M("modlist")->where(['id'=>$modid])->find();
+XModel::SetTitle($modinfo['fullname']."-添加方块");
+if($modinfo==false||$modinfo['uid']!=S('uid')){
+    scbbs::error('不存在该mod或者你没有操作权限');
+}
+if($do!='submit'){
+    $cdata=M("modblockcate")->where(['uid'=>S('uid')])->select();
+    XModel::Set("blockcatehtml",ModList::formatBlockCate($cdata));
+    XModel::SetContent(XModel::Load("addblock","mods"));    
+}else{
+    $name=I('name');$desc=I('desc');$max=I('max');
+    $craft=I('craft');$blockcate=I('blockcate');$icon=I('icondata');
+    if(empty($name)||empty($max)||empty($icon)||empty($blockcate)){
+        XModel::error("名称或最大堆叠，方块图标，分类不可为空");
+    }else{
+        M("modblocks")->add(['modid'=>$modid,'name'=>$name,'description'=>$desc,'maxstack'=>$max,'icon'=>$icon,'craftid'=>$craftid,'craft'=>$craft,'cateid'=>$blockcate]);
+        Xmodel::success("添加成功",XModel::Get("WEBPATH")."/mods/mblocklist/".$modid,"返回列表");
+    }
+}

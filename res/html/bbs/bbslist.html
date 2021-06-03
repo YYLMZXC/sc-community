@@ -1,0 +1,26 @@
+<!--帖子主题布局-->
+<div class="card">
+    <div class="listview lv-bordered lv-lg">
+        <div class="lv-header-alt">
+            <div class="title">
+                {ifnologin}<a href="{$WEBPATH}/login" class="btn btn-primary waves-effect waves-button">登录以发表</a>{/ifnologin}
+                {iflogin}<a href="{$WEBPATH}/bbs/publish/{$cid}"
+                    class="btn btn-primary waves-effect waves-button">发帖</a>{/iflogin}
+                <ul class="lv-actions actions" component="category/controls">
+                    <!--子版块-->
+                </ul>
+            </div>
+        </div>
+        <a href="/category/2/%E8%84%9A%E6%9C%AC%E5%8F%91%E5%B8%83">
+            <div class="alert alert-warning hide" id="new-topics-alert"></div>
+        </a>
+
+        <div class="lv-body" component="category" itemscope="" itemtype="http://www.schema.org/ItemList"
+            data-nextstart="20">
+            <meta itemprop="itemListOrder" content="descending">
+            <!--开始显示帖子列表-->
+            {$bbsitemlist}
+        </div>
+    </div>
+    {$pagehtml}
+</div>

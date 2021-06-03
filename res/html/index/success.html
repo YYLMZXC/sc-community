@@ -1,0 +1,22 @@
+<html>
+{loadres="./res/html/common/head.html"}
+<body>
+<div class="container" id="content">
+<div class="alert alert alert-info" id="login-error-notify" style="display: block;">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <p>
+        <font color="green">{$tip}</font>
+    </p>
+    <br>
+    <p>
+        <a href="javascript:;" onclick="toUrl();">{$name}</a>
+    </p>
+</div>
+</div>
+<script>
+function toUrl(){
+    window.location.href="{$url}";
+}
+</script>
+</body>
+</html>

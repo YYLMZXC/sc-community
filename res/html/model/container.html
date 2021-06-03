@@ -1,0 +1,27 @@
+<html>
+<!--页面输出模板-->
+{loadres="./res/html/common/head.html"}
+<body class="skin-default page-categories page-status-200">
+    {$beforecontainer}
+    <div class="container" id="content">
+        <noscript>
+            <div class="alert alert-danger">
+                <p>
+                    Your browser does not seem to support JavaScript. As a result, your viewing experience will be
+                    diminished, and you may not be able to execute some actions.
+                </p>
+                <p>
+                    Please download a browser that supports JavaScript, or enable it if it's disabled (i.e. NoScript).
+                </p>
+            </div>
+        </noscript>
+        {$container}
+        {$innercontainer}
+    </div>
+    {$aftercontainer}
+    {loadres="./res/html/common/foot.html"}
+    {$bottom}
+    <!--{$debug}-->
+</body>
+
+</html>

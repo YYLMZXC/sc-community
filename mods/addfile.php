@@ -1,0 +1,25 @@
+<?php
+$descid=intval($urlparams['_p0']);
+$do=I('do');
+$descinfo=M("modrelease")->where(['id'=>$descid])->find();
+$modinfo=M("modlist")->where(['id'=>$descinfo['modid']])->find();
+if($modinfo['uid']!=S('uid'))XModel::error('你没有操作权限');
+XModel::Set("modid",$descinfo['modid']);
+XModel::Set("descid",$descinfo['id']);
+XModel::Set("modname",$modinfo['fullname']);
+XModel::Set("version",$descinfo['version']);
+XModel::SetTitle($modinfo['fullname']."-添加版本文件");
+if(empty($do)){
+    XModel::SetContent(XModel::Load("addfile","mods"));
+}else{
+    $appver=I('appver');
+    $faddr=I('faddr');
+    $filename=I('fname');
+    $ftype=I('ftype');
+    if(empty($appver)||empty($faddr)||empty($filename)||empty($ftype)){
+        XModel::error("适用版本或文件不可为空".$fname.$appver);
+    }
+    M('modlist')->where(['id'=>$descinfo['modid']])->save(['lastupdatetime'=>time()]);
+    M('moddown')->add(['descid'=>$descid,'url'=>$faddr,'modid'=>$descinfo['modid'],'addTime'=>time(),'name'=>$filename,'appver'=>$appver,'type'=>$ftype,'uid'=>S('uid')]);
+    XModel::success("添加成功","/com/mods/desclist/".$descinfo['modid'],"返回发布说明");
+}

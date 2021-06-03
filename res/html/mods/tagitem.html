@@ -1,0 +1,78 @@
+        <div class="Box-row position-relative d-flex">
+          <div class="flex-auto min-width-0">
+            
+<div class="commit js-details-container Details">
+  <div class="d-flex">
+    <h4 class="flex-auto min-width-0 pr-2 pb-1 commit-title">
+      <a href="#">
+        v{$version}
+      </a>
+      <span class="hidden-text-expander inline"><button type="button" aria-expanded="false" class="ellipsis-expander js-details-target" aria-label="Toggle commit message">…</button></span>
+    </h4>
+
+      
+    <details class="dropdown dropdown-signed-commit details-reset details-overlay js-dropdown-details d-inline-block ml-1">
+        <summary class="signed-commit-badge signed-commit-badge-medium verified" title="Commit signature">
+            验证
+        </summary>
+        <div class="anim-scale-in" style="position: relative; z-index: 200;">
+          <div class="dropdown-menu dropdown-menu-sw py-0 text-gray-dark text-left">
+            <div class="signed-commit-header TableObject">
+              <div class="TableObject-item">
+                <svg height="32" class="octicon octicon-verified mr-2" viewBox="0 0 24 24" version="1.1" width="32" aria-hidden="true"><path d="M17.03 9.78a.75.75 0 00-1.06-1.06l-5.47 5.47-2.47-2.47a.75.75 0 00-1.06 1.06l3 3a.75.75 0 001.06 0l6-6z"></path><path fill-rule="evenodd" d="M14.136 1.2a3.61 3.61 0 00-4.272 0L8.489 2.21a2.11 2.11 0 01-.929.384l-1.686.259a3.61 3.61 0 00-3.021 3.02L2.594 7.56a2.11 2.11 0 01-.384.929L1.2 9.864a3.61 3.61 0 000 4.272l1.01 1.375c.2.274.333.593.384.929l.259 1.686a3.61 3.61 0 003.02 3.021l1.687.259c.336.051.655.183.929.384l1.375 1.01a3.61 3.61 0 004.272 0l1.375-1.01a2.11 2.11 0 01.929-.384l1.686-.259a3.61 3.61 0 003.021-3.02l.259-1.687a2.11 2.11 0 01.384-.929l1.01-1.375a3.61 3.61 0 000-4.272l-1.01-1.375a2.11 2.11 0 01-.384-.929l-.259-1.686a3.61 3.61 0 00-3.02-3.021l-1.687-.259a2.11 2.11 0 01-.929-.384L14.136 1.2zm-3.384 1.209a2.11 2.11 0 012.496 0l1.376 1.01a3.61 3.61 0 001.589.658l1.686.258a2.11 2.11 0 011.765 1.766l.26 1.686a3.61 3.61 0 00.657 1.59l1.01 1.375a2.11 2.11 0 010 2.496l-1.01 1.376a3.61 3.61 0 00-.658 1.589l-.258 1.686a2.11 2.11 0 01-1.766 1.765l-1.686.26a3.61 3.61 0 00-1.59.657l-1.375 1.01a2.11 2.11 0 01-2.496 0l-1.376-1.01a3.61 3.61 0 00-1.589-.658l-1.686-.258a2.11 2.11 0 01-1.766-1.766l-.258-1.686a3.61 3.61 0 00-.658-1.59l-1.01-1.375a2.11 2.11 0 010-2.496l1.01-1.376a3.61 3.61 0 00.658-1.589l.258-1.686a2.11 2.11 0 011.766-1.766l1.686-.258a3.61 3.61 0 001.59-.658l1.375-1.01z"></path></svg>
+              </div>
+              <div class="TableObject-item--primary">
+                    官方<strong class="signed-commit-verified-label">绿色认证</strong>
+              </div>
+            </div>
+
+
+            <div class="signed-commit-footer">
+                <span class="d-block">Md5: <span style="color:green;" class="text-gray">{$md}</span></span>
+              <a href="https://docs.github.com/articles/signing-commits-with-gpg/">学习如何提交</a>
+            </div>
+          </div>
+        </div>
+    </details>
+
+  </div>
+
+  <div class="commit-desc">
+    <pre class="text-small text-gray">bump version
+</pre>
+  </div>
+
+<ul class="list-style-none f6">
+    <li class="d-inline-block  mt-1 mr-2 text-gray">
+      <svg class="octicon octicon-clock" height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zm.5 4.75a.75.75 0 00-1.5 0v3.5a.75.75 0 00.471.696l2.5 1a.75.75 0 00.557-1.392L8.5 7.742V4.75z"></path></svg>
+      <relative-time datetime="2020-10-09T04:27:55Z" class="no-wrap" title="{$time}">{$time}</relative-time>
+    </li>
+
+    <li class="d-inline-block mt-1 mr-2 text-mono">
+      <a class="muted-link" href="#">
+        <svg class="octicon octicon-git-commit" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M10.5 7.75a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zm1.43.75a4.002 4.002 0 01-7.86 0H.75a.75.75 0 110-1.5h3.32a4.001 4.001 0 017.86 0h3.32a.75.75 0 110 1.5h-3.32z"></path></svg>
+        {$versionmd}
+      </a>
+    </li>
+    {$lilist}
+    
+    <!--  <li class="d-inline-block mt-1 mr-2">
+        <a class="muted-link" href="/v2ray/v2ray-core/releases/tag/v4.31.0">
+          <svg class="octicon octicon-file" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M3.75 1.5a.25.25 0 00-.25.25v11.5c0 .138.112.25.25.25h8.5a.25.25 0 00.25-.25V6H9.75A1.75 1.75 0 018 4.25V1.5H3.75zm5.75.56v2.19c0 .138.112.25.25.25h2.19L9.5 2.06zM2 1.75C2 .784 2.784 0 3.75 0h5.086c.464 0 .909.184 1.237.513l3.414 3.414c.329.328.513.773.513 1.237v8.086A1.75 1.75 0 0112.25 15h-8.5A1.75 1.75 0 012 13.25V1.75z"></path></svg>
+          说明
+        </a>
+      </li>
+
+      <li class="d-inline-block mt-1 mr-2">
+        <a class="muted-link" href="/v2ray/v2ray-core/releases/tag/v4.27.5">
+          <svg class="octicon octicon-download" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.47 10.78a.75.75 0 001.06 0l3.75-3.75a.75.75 0 00-1.06-1.06L8.75 8.44V1.75a.75.75 0 00-1.5 0v6.69L4.78 5.97a.75.75 0 00-1.06 1.06l3.75 3.75zM3.75 13a.75.75 0 000 1.5h8.5a.75.75 0 000-1.5h-8.5z"></path></svg>
+          下载
+        </a>
+      </li>-->
+</ul>
+
+</div>
+
+          </div>
+
+        </div>

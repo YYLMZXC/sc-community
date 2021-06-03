@@ -1,0 +1,52 @@
+<h2><a href="/com/mods/list">返回列表</a></h2>
+    <fieldset class="staff_info">
+    <legend>添加Mod</legend>
+<form action="/com/mods/add?do=submit" method="POST">
+    <fieldset class="staff_info" style="line-height: initial;">
+    <legend>Mod标签(可多选)</legend>
+    {$flags}
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>简称</legend>
+    <input type="text" name="name">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>全称</legend>
+    <input type="text" name="fullname">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>英文名称</legend>
+    <input type="text" name="enname">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>简介</legend>
+    <textarea name="desc" rows="5" cols="40"></textarea>
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>作者</legend>
+    <input type="text" name="author">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>适用游戏版本(多个用|隔开)</legend>
+    <input type="text" name="appver">
+    <input type="hidden" name="flags" id="flags">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>Submit</legend>
+    <input type="submit" style="font-size:18px;" value="提交">
+    </fieldset>
+    </form>
+    </fieldset>
+    <script>
+    var flags=[];
+    function selectop(context){
+        if(context.hasClass("flag-select")){
+            context.removeClass("flag-select");
+            flags.pop(context.attr('data-id'));
+        }else{
+            flags.push(context.attr('data-id'));
+            context.addClass("flag-select");
+        }
+        $("#flags").val(JSON.stringify(flags));
+    }
+    </script>

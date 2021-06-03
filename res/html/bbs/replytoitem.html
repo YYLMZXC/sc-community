@@ -1,0 +1,45 @@
+<div component="post" class="" data-index="1" data-pid="14819" data-uid="30785" data-timestamp="1548904575404" data-username="{$nickname}" data-userslug="{$nickname}" itemscope="" itemtype="http://schema.org{$WEBPATH}ment">
+    <a component="post/anchor" data-index="1"></a>
+    <meta itemprop="datePublished" content="">
+    <meta itemprop="dateModified" content="">
+
+    <div class="post-block">
+        <div class="poster-avatar hidden-xs">
+            <a href="{$WEBPATH}/user/{$uid}">
+                {$usericon}
+                <span component="user/status" class="status {$online}" title="{$onlinetext}"></span>
+            </a>
+        </div>
+
+        <div class="post-content">
+
+            <div class="post-body">
+                
+                <div class="post-header">
+                    <a class="pull-left visible-xs user-profile-link" href="{$WEBPATH}/user/{$uid}">
+                        
+                    {$usericon}
+                        
+                    </a>
+
+                    <strong>
+                        <a href="{$WEBPATH}/user/{$uid}" itemprop="author" data-username="Neko" data-uid="{$uid}">{$nickname}</a>
+                    </strong>
+                    
+                    <span class="post-time">
+                        <a class="permalink" href="/post/14819"><span class="timeago" title="{$addTime}" datetime="{$addTime}">{$addTime}</span></a>
+
+                        <span class="post-tools">
+                            <a component="post/reply" bid="{$bid}" rid={$rid} href="{$WEBPATH}/bbs/replytoreply/{$rid}"><i class="fa fa-reply"></i>回复</a>
+                        </span>
+                    </span>
+                </div>
+
+                <div component="post/content" itemprop="text">
+                    {$content}
+                </div>
+                {replytonum}<small component="post/editor" class="pull-right post-edit"><strong>{$replytonum}</strong></small>{/replytonum}
+            </div>
+        </div>
+    </div>
+</div>

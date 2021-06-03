@@ -1,0 +1,51 @@
+<h2><a href="/com/mods/desclist/{$modid}">返回更新日志列表</a></h2>
+    <fieldset class="staff_info">
+    <legend>发布【{$version}】的更新日志</legend>
+    <form action="/com/mods/addfile/{$descid}?do=submit" method="POST" enctype="multipart/form-data">
+    <fieldset class="staff_info">
+    <legend>适用游戏版本(多个用|隔开)</legend>
+    <input type="text" name="appver" placeholder="2.2.10.4">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>添加文件&emsp;&emsp;<font id="moer" color="green"></font></legend>
+    <input type="hidden" id="faddr" name="faddr">&emsp;
+    <input type="hidden" id="fname" name="fname">&emsp;
+    <input type="hidden" id="ftype" name="ftype">&emsp;
+    <button id="test1" type="button">上传文件</button>
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>Submit</legend>
+    <input type="submit" style="font-size:18px;" value="提交">
+    </fieldset>
+    </form>
+    </fieldset>
+<!--加载layui组件-->
+<script src="/com/res/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('upload', function(){
+  var $ = layui.jquery
+  ,upload = layui.upload;
+  var uploadInst = upload.render({
+    elem: '#test1'
+    ,url: '/com/modupload'
+    ,accept:'file'
+    ,before: function(obj){}
+    ,progress: function(n, elem){
+    var percent = n + '%' //获取进度百分比
+    $("#moer").html("(上传中"+percent+")");;
+    }
+    ,done: function(res){
+      if(res.code == 1){
+          $("#faddr").val(res.url);
+          $("#fname").val(res.name);
+          $("#ftype").val(res.type);
+          $("#moer").html("(已上传)");
+      }
+        return layer.msg(res.msg);
+    }
+    ,error: function(){
+    }
+  });
+    });
+</script>    
+    

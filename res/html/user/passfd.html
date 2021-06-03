@@ -1,0 +1,25 @@
+<html>
+{loadres="./res/html/common/head.html"}
+    <div class="container" id="content">
+        <div class="login">
+        <form class="form-horizontal" action="./passfd?do=submit" method="POST" id="login-form">
+            <div class="login-block">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-fw fa-lock" style="line-height: 40px;"></i></span>
+                <div class="fg-line">
+                    <input class="form-control" type="text" name="email" value="" placeholder="输入要找回的账号绑定的邮箱">
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><img src="./passfd?do=img" alt="验证码"></span>
+                <div class="fg-line">
+                    <input class="form-control" type="text" name="code" value="" placeholder="验证码">
+                </div>
+            </div>
+            </div>
+        <button class="btn btn-primary btn-lg btn-block waves-effect" id="login" type="submit">重置密码</button>
+        </form>
+        </div>
+    </div>
+{loadres="./res/html/common/foot.html"}        
+        </html>

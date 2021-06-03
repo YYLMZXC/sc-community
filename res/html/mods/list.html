@@ -1,0 +1,12 @@
+<h2>我添加的Mod列表</h2>
+<h2><a class="xxfunc-btn1 font18px" href="/com/mods/add">新增Mod</a></h2>
+<ul style="margin-top:2em;">
+{$list}
+</ul>
+<script>
+    function delMod(id){
+        if(confirm("你确定要删除吗?(删除该条将会删除所有日志和相关文件)")){
+            window.location.href="/com/mods/delete/"+id+"?type=1";
+        }
+    }
+</script>

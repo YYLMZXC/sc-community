@@ -1,0 +1,10 @@
+<?php
+$bid=intval($urlparams['_p0']);
+if(empty(S('uid')))XModel::error('请先登录');
+$data=M('bbslist')->where(['id'=>$bid])->find();
+if($data==false)XModel::error('此贴已被删除');
+if($data['uid']!=S('uid')&&$user['isadmin']!=1)XModel::error('你没有删除此贴的权限');
+M('bbsreplyto')->where(['bid'=>$bid])->save(['stat'=>0]);
+M('bbsreply')->where(['bbsid'=>$bid])->save(['stat'=>0]);
+M('bbslist')->where(['id'=>$bid])->save(['stat'=>0]);
+XModel::success('删除成功',XModel::Get("WEBPATH").'/cate/'.$data['cid'],'返回列表');

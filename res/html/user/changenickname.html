@@ -1,0 +1,21 @@
+<html>
+{loadres="./res/html/common/head.html"}
+    <div class="container" id="content">
+        {iferr}<p><font color="{$iferr[tipcolor]}">{$iferr[tip]}</font></p>{/iferr}
+        {succ}<script>window.location.href="/com";</script>{/succ}
+        <div class="login">
+        <form class="form-horizontal" action="./index?do=changepw&ext=submit" method="POST" id="login-form">
+            <div class="login-block">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-fw fa-lock" style="line-height: 40px;"></i></span>
+                <div class="fg-line">
+                    <input class="form-control" type="text" name="pass" value="{$input}" placeholder="输入新的昵称">
+                </div>
+            </div>
+            </div>
+        <button class="btn btn-primary btn-lg btn-block waves-effect" id="login" type="submit">保存</button>
+        </form>
+        </div>
+    </div>
+{loadres="./res/html/common/foot.html"}        
+        </html>

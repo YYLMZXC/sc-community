@@ -1,0 +1,147 @@
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1,width=device-width,height=device-height,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
+    <title>{$modname}-版本历史</title>
+    <link crossorigin="anonymous" media="all"
+        integrity="sha512-a3UvjYwiUB3k7uMFNp1DCYYo/ZZKpVWE6FJxoaoiWV2bjyvUUTiWzgEiq4wSwS7pBL7sEZhQnJ2SytUH9ar/Sw=="
+        rel="stylesheet" href="https://github.githubassets.com/assets/frameworks-6b752f8d8c22501de4eee305369d4309.css">
+    <link crossorigin="anonymous" media="all"
+        integrity="sha512-AWW6Hrc6QcPMXDvaVkrJnv8Pw3lwXt+a0k1U9S40gVp74kmZv1755kUWBA7QPKLu4DOx6l9B3nv5Yemf55sRBQ=="
+        rel="stylesheet" href="https://github.githubassets.com/assets/github-0165ba1eb73a41c3cc5c3bda564ac99e.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="/com/editormd/editormd.min.js"></script>
+    <script src="/com/editormd/lib/marked.min.js"></script>
+    <script src="/com/editormd/lib/prettify.min.js"></script>
+    <script src="/com/editormd/lib/raphael.min.js"></script>
+    <script src="/com/editormd/lib/underscore.min.js"></script>
+    <script src="/com/editormd/lib/sequence-diagram.min.js"></script>
+    <script src="/com/editormd/lib/flowchart.min.js"></script>
+    <script src="/com/editormd/lib/jquery.flowchart.min.js"></script>
+    <script src="/com/editormd/editormd.js"></script>
+    <script type="text/javascript">
+        var editor = null;
+
+        function loadEditor(idname) {
+            editor = editormd(idname, {
+                path: "/com/editormd/lib/",
+                watch: false,
+                toc: true,
+                emoji: true,
+                taskList: true,
+                imageUpload: true,
+                toolbarIcons: function () {
+                    return ["undo", "redo", "|", "bold", "del", "hr", "italic", "quote", "|", "h1", "h2",
+                        "h3", "h4", "h5", "h6", "|", "list-ul", "list-ol", "hr", "|", "link",
+                        "reference-link", "image", "testIcon", "file", "|", "code", "code-block",
+                        "table", "datetime", "emoji", "|", "html-entities", "preview", "clear", "search"
+                    ]
+                },
+                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL: "/com/imgupload",
+                toolbarIconsClass: {
+                    testIcon: "fa-upload" // 指定一个FontAawsome的图标类
+                },
+                toolbarHandlers: {
+                    testIcon: function (cm, icon, cursor, selection) {
+                        $("#file").click();
+                        $("#file").change(function () {
+                            var form = new FormData();
+                            form.append('file', $('#file')[0].files[0]);
+                            //上传文件
+                            $.ajax({
+                                url: '/com/fileupload',
+                                type: 'post',
+                                data: form,
+                                dataType: 'json',
+                                cache: false,
+                                processData: false,
+                                contentType: false,
+                                success: function (r) {
+                                    if (r.success == 1) {
+                                        layer.msg(r.message);
+                                        cm.replaceSelection("[:fa-cloud-download: " + r
+                                            .name + "(" + r.size + ")](" + r.url +
+                                            " \"" + r.name + "\")");
+                                        if (selection === "") {
+                                            cm.setCursor(cursor.line, cursor.ch + 1);
+                                        }
+                                    } else if (r.success == 0) { //上传文件有错误信息
+                                        layer.msg(r.message);
+                                    } else {
+                                        layer.msg(r.message);
+                                    }
+                                }
+                            });
+                        });
+                    }
+                },
+                toolbarCustomIcons: {
+                    file: "<input type=\"file\" id=\"file\" style=\"display:none;\"/>",
+                },
+                lang: {
+                    toolbar: {
+                        testIcon: "文件上传",
+                    }
+                },
+                onload: function () {}
+            });
+        }
+
+        function parseEditor(idname) {
+            editormd.markdownToHTML(idname, {
+                htmlDecode: "style,script,iframe", // you can filter tags decode
+                emoji: true,
+                taskList: true,
+                tex: true, // 默认不解析
+                flowChart: true, // 默认不解析
+                sequenceDiagram: true, // 默认不解析
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="border-bottom shelf intro-shelf js-notice mb-0 pb-4">
+  <div class="width-full container">
+    <div class="width-full mx-auto shelf-content">
+      <h2 class="shelf-title">{$modname}</h2>
+        <div style="text-align:center;" class="marginA">{$flagshtml}</div>
+        <div style="text-align:center;font-weight:bold; margin-top:.4em;">支持的游戏版本</div>
+        <div style="text-align:center; margin-top: .4em;">{$verhtml}</div>
+          {$moddesc}
+    </div>
+<form class="shelf-dismiss js-notice-dismiss" action="/com/mods/viewlist" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="delete"><input type="hidden" name="authenticity_token">
+      <button name="button" type="submit" class="mr-1 close-button tooltipped tooltipped-w" aria-label="Hide this notice forever">
+        <svg aria-label="Hide this notice forever" class="octicon octicon-x v-align-text-top" viewBox="0 0 16 16" version="1.1" width="16" height="16" role="img"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>
+</button></form>
+    </div>
+</div>
+    
+    
+<div class="container-xl clearfix new-discussion-timeline px-3 px-md-4 px-lg-5">
+  <div class="repository-content ">
+        <div class="subnav">
+
+    </div>
+
+    <div class="Box">
+      <div class="Box-header">
+        <h3 class="Box-title">
+          <svg class="octicon octicon-tag" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M2.5 7.775V2.75a.25.25 0 01.25-.25h5.025a.25.25 0 01.177.073l6.25 6.25a.25.25 0 010 .354l-5.025 5.025a.25.25 0 01-.354 0l-6.25-6.25a.25.25 0 01-.073-.177zm-1.5 0V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 010 2.474l-5.026 5.026a1.75 1.75 0 01-2.474 0l-6.25-6.25A1.75 1.75 0 011 7.775zM6 5a1 1 0 100 2 1 1 0 000-2z"></path></svg>
+          {$title}
+        </h3>
+      </div>
+    <div id="worditem">
+        <textarea id="append-test" style="display:none;">{$content}</textarea>
+    </div>      
+    </div>
+  </div>
+</div>    
+    
+<script>
+     parseEditor('worditem');
+</script>    
+
+</body>
+
+</html>

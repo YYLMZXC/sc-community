@@ -1,0 +1,35 @@
+<html>
+    {loadres="./res/html{$WEBPATH}mon/head.html"}
+<body class="skin-default page-category page-category-2 page-category-{$subtitle} page-status-200">
+<div class="container" id="content">
+<div class="category">
+    <ol class="breadcrumb">
+	
+	<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+		<a href="{$WEBPATH}" itemprop="url">
+			<span itemprop="title">
+				主页
+				
+			</span>
+		</a>
+	</li>
+	
+	<li component="breadcrumb/current" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb" class="active">
+		
+			<span itemprop="title">
+				{$catename}
+				
+				
+				<a target="_blank" href="{$WEBPATH}/cate/{$cid}"><i class="fa fa-rss-square"></i></a>
+				
+			</span>
+		
+	</li>
+	
+</ol>
+    {$data}
+</div>
+</div>
+    {loadres="./res/html{$WEBPATH}mon/foot.html"}
+</body>
+</html>

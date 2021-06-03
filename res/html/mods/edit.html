@@ -1,0 +1,57 @@
+<h2><a href="/com/mods/list">返回列表</a></h2>
+    <fieldset class="staff_info">
+    <legend>修改Mod</legend>
+<form action="/com/mods/edit/{$id}?do=submit" method="POST">
+    <fieldset class="staff_info">
+    <legend>Mod标签(可多选)</legend>
+    {$flagshtml}
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>简称</legend>
+    <input type="text" name="name" value="{$name}">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>全称</legend>
+    <input type="text" name="fullname" value="{$fullname}">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>英文名称</legend>
+    <input type="text" name="enname" value="{$enname}">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>简介</legend>
+    <textarea name="desc" rows="5" cols="40">{$description}</textarea>
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>作者</legend>
+    <input type="text" name="author" value="{$author}">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>适用游戏版本(多个用|隔开)</legend>
+    <input type="text" name="appver" value="{$appver}">
+    <input type="hidden" name="flags" id="flags" value="{$modflags}">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>Submit</legend>
+    <input type="submit" style="font-size:18px;" value="提交">
+    </fieldset>
+    </form>
+    </fieldset>
+    <script>
+    var flags=[];
+    var d=$("#flags").val();
+    var f=JSON.parse(d);
+    for(var i=0;i<f.length;i++){
+        $("[data-id="+f[i]+"]").addClass("flag-select");
+    }
+    function selectop(context){
+        if(context.hasClass("flag-select")){
+            context.removeClass("flag-select");
+            flags.pop(context.attr('data-id'));
+        }else{
+            flags.push(context.attr('data-id'));
+            context.addClass("flag-select");
+        }
+        $("#flags").val(JSON.stringify(flags));
+    }
+    </script>

@@ -1,0 +1,14 @@
+<h2><a href="/com/mods/list">返回Mods列表</a></h2>
+<h2>教程列表</h2>
+<h2><a class="xxfunc-btn1 font18px" href="/com/mods/addword/{$id}">添加</a></h2>
+<ul>
+    {$list}
+</ul>
+
+<script>
+    function delWord(id){
+        if(confirm("你确定要删除吗?(删除该条将会删除所有相关文件)")){
+            window.location.href="/com/mods/deletew/"+id;
+        }
+    }
+</script>

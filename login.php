@@ -1,0 +1,11 @@
+<?php
+/**
+ *登陆响应token
+ **/
+$response_type=I('response_type');//响应类型
+$client_id=I('client_id');//设备ID
+$do=I('do');
+XModel::SetTitle("用户登录");
+XModel::Set('display',"none");
+XModel::Load("index","login",false);
+?>

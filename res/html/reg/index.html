@@ -1,0 +1,66 @@
+<html>
+    {loadres="./res/html/common/head.html"}
+<div class="container" id="content"><div class="login">    
+        <div class="login-block">
+
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-fw fa-user" style="line-height: 40px;"></i></span>
+                <div class="fg-line">
+                    <input class="form-control" type="text" name="user" id="user" placeholder="用户名(只能由数字和字母组成)" autocorrect="off" autocapitalize="off" value="">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-fw fa-lock" style="line-height: 40px;"></i></span>
+                <div class="fg-line">
+                    <input class="form-control" type="password" name="pass" id="pass" placeholder="密码">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-fw fa-lock" style="line-height: 40px;"></i></span>
+                <div class="fg-line">
+                    <input class="form-control" type="password" name="repass" id="repass" placeholder="确认密码">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-fw fa-adn" style="line-height: 40px;"></i></span>
+                <div class="fg-line">
+                    <input class="form-control" type="text" name="email" id="email" placeholder="邮箱(找回密码需要使用邮箱)">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-fw fa-adn" style="line-height: 40px;"></i></span>
+                <div class="fg-line">
+                    <input class="form-control" type="text" name="nickname" id="nickname" placeholder="昵称">
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-lg btn-block waves-effect" id="login" onclick="reg()" type="button">注册</button>
+
+        </div>
+    </div></div>
+{loadres="./res/html/common/foot.html"}
+<script>
+    $(".form-control").focus(function(){ $(this).parent("div").addClass("fg-toggled")});
+    $(".form-control").blur(function(){ $(this).parent("div").removeClass("fg-toggled")});
+    function reg(){
+        Ajax("{$WEBPATH}/api/user/reg",{
+            "user":$("#user").val(),
+            "nickname":$("#nickname").val(),
+            "pass":$("#pass").val(),
+            "repass":$("#repass").val(),
+            "email":$("#email").val()
+        },function(res){
+            if(res.code==200){
+                
+                setTimeout(function(){window.location.href="{$WEBPATH}/";},1500);
+            }
+            layer.msg(res.msg);
+        });
+    }
+</script>
+
+    </html>

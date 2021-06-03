@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1,width=device-width,height=device-height,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
+    <title>{$webTitle}</title>
+    <link rel="stylesheet" href="//cdn.schub.top/assets/frameworks-6b752f8d8c22501de4eee305369d4309.css">
+    <link rel="stylesheet" href="//cdn.schub.top/assets/github-0165ba1eb73a41c3cc5c3bda564ac99e.css">
+</head>
+<body>
+    <div class="border-bottom shelf intro-shelf js-notice mb-0 pb-4">
+  <div class="width-full container">
+    <div class="width-full mx-auto shelf-content">
+      <h2 class="shelf-title">{$modname}</h2>
+        <div style="text-align:center;" class="marginA">{$flagshtml}</div>
+        <div style="text-align:center;font-weight:bold; margin-top:.4em;">支持的游戏版本</div>
+        <div style="text-align:center; margin-top: .4em;">{$verhtml}</div>
+          {$moddesc}
+    </div>
+<form class="shelf-dismiss js-notice-dismiss" action="/com/mods/viewlist" accept-charset="UTF-8" method="post"><input type="hidden" name="_method" value="delete"><input type="hidden" name="authenticity_token">
+      <button name="button" type="submit" class="mr-1 close-button tooltipped tooltipped-w" aria-label="Hide this notice forever">
+        <svg aria-label="Hide this notice forever" class="octicon octicon-x v-align-text-top" viewBox="0 0 16 16" version="1.1" width="16" height="16" role="img"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>
+</button></form>
+    </div>
+</div>
+    
+    
+<div class="container-xl clearfix new-discussion-timeline px-3 px-md-4 px-lg-5">
+  <div class="repository-content ">
+      
+        <div class="subnav">
+            <div class="d-flex flex-md-row flex-justify-between flex-md-items-center">
+                <div class="subnav-links float-left" role="navigation">
+                    <a class="js-selected-navigation-item subnav-item" {ifrelease}aria-current="page"{/ifrelease}
+                        href="/com/mods/preview/{$id}">发布历史</a>
+                    <a class="js-selected-navigation-item subnav-item" {iftag}aria-current="page"{/iftag}
+                        href="/com/mods/taglist/{$id}">版本历史</a>
+                    <a class="js-selected-navigation-item subnav-item" {ifword}aria-current="page"{/ifword}
+                        href="/com/mods/wordlist/{$id}">Mod教程</a>
+                    <a class="js-selected-navigation-item subnav-item" {ifblock}aria-current="page"{/ifblock}
+                        href="/com/mods/blocklist/{$id}">Mod方块/生物/buff</a>
+                </div>
+            </div>
+    </div>

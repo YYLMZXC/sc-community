@@ -1,0 +1,116 @@
+<style>
+.select {
+		display: inline-block;
+		width: 300px;
+		position: relative;
+		vertical-align: middle;
+		padding: 0;
+		overflow: hidden;
+		background-color: #fff;
+		color: #555;
+		border: 1px solid #aaa;
+		text-shadow: none;
+		border-radius: 4px;	
+		transition: box-shadow 0.25s ease;
+		z-index: 2;
+	}
+ 
+	.select:hover {
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+	}
+ 
+	.select:before {
+		content: "";
+		position: absolute;
+		width: 0;
+		height: 0;
+		border: 10px solid transparent;
+		border-top-color: #ccc;
+		top: 14px;
+		right: 10px;
+		cursor: pointer;
+		z-index: -2;
+	}
+	.select select {
+		cursor: pointer;
+		padding: 10px;
+		width: 100%;
+		border: none;
+		background: transparent;
+		background-image: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+	}
+ 
+	.select select:focus {
+		outline: none;
+    
+    
+</style>
+<h2><a href="/com/mods/mblocklist/{$modid}">返回</a></h2>
+    <fieldset class="staff_info">
+    <legend>添加方块</legend>
+    <form action="/com/mods/addblock/{$modid}?do=submit" method="POST" enctype="multipart/form-data">
+    <fieldset class="staff_info">
+    <legend>名称</legend>
+    <input type="text" name="name" placeholder="名称">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>描述</legend>
+    <input type="text" name="desc" placeholder="描述">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>最大堆叠</legend>
+    <input type="text" name="max" placeholder="40">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>合成标识</legend>
+    <input type="text" name="craftid" placeholder="">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>合成谱</legend>
+    <input type="text" name="craft" placeholder="">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>分类(如果没有请先新建分类)</legend>
+    {$blockcatehtml}
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>方块图标<font id="moer" color="green"></font></legend>
+    <input type="hidden" id="icondata" name="icondata">&emsp;
+    <button id="test1" type="button">选择图标</button>
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>Submit</legend>
+    <input type="submit" style="font-size:18px;" value="提交">
+    </fieldset>
+    </form>
+    </fieldset>
+<!--加载layui组件-->
+<script src="/com/res/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('upload', function(){
+  var $ = layui.jquery
+  ,upload = layui.upload;
+  var uploadInst = upload.render({
+    elem: '#test1'
+    ,url: '/com/imgencode'
+    ,accept:'file'
+    ,before: function(obj){}
+    ,progress: function(n, elem){
+    var percent = n + '%' //获取进度百分比
+    $("#moer").html("(上传中"+percent+")");;
+    }
+    ,done: function(res){
+      if(res.code == 200){
+          $("#icondata").val(res.data);
+          $("#moer").html("(已上传)");
+      }
+        return layer.msg(res.msg);
+    }
+    ,error: function(){
+    }
+  });
+    });
+</script>    
+    

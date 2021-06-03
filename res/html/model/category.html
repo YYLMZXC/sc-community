@@ -1,0 +1,28 @@
+<div class="category">
+   <ol class="breadcrumb">
+	<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+		<a href="{$WEBPATH}" itemprop="url">
+			<span itemprop="title">
+				主页
+			</span>
+		</a>
+	</li>
+	<li itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+		<a href="#" itemprop="url">
+			<span itemprop="title">
+				{$parentcate}
+			</span>
+		</a>
+	</li>
+	
+	<li component="breadcrumb/current" itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb" class="active">
+		<a href="/com/cate/{$cid}" itemprop="url">
+			<span itemprop="title">
+				{$nowcate}
+			</span>
+		</a>
+	</li>
+	
+</ol>
+    {$data}
+</div>

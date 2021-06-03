@@ -1,0 +1,40 @@
+<div style="display: flex;align-items: baseline;"><h2 style="width:80%;"><a href="/com/mods/list">返回Mods列表</a></h2>
+
+<a class="xxfunc-btn1 colorB" style="vertical-align: middle;width: 20%;float: right;"  href="javascript:;" id="addword">添加教程</a></div>
+    <fieldset class="staff_info">
+    <legend>教程标题</legend>
+    <input type="text" name="title" id="title">
+    </fieldset>
+    <fieldset class="staff_info">
+    <legend>内容</legend>
+        <div id="test-editor">
+            <textarea style="display:none;"></textarea>
+        </div>
+    </fieldset>
+<script type="text/javascript">
+    loadEditor("test-editor");
+    $("#addword").click(function(){
+        var title=$("#title").val();
+        var text=editor.getMarkdown();
+        var modid={$id};
+        var data={modid:modid,title:title,content:text};
+        if(title=="")layer.msg("标题不可为空");
+        else if(text=="")layer.msg("内容不可为空");
+        else{
+            $.ajax({
+                url:"/com/api/mods/addword",
+                data:data,
+                dataType:"json",
+                type:"POST",
+                success:function(res){
+                    layer.msg(res.msg);
+                    if(res.code==200){
+                        window.location.href="/com/mods/list";
+                    }
+                }
+            });
+            
+            
+        }
+    });
+</script>

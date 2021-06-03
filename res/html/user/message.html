@@ -1,0 +1,32 @@
+<table style="margin-bottom:2em;">
+<tr>
+    <th>来自</th>
+    <th>时间</th>
+    <th>内容</th>
+    <th><a href="javascipt:;" onclick="readAll();" class="xxfunc-btn1">阅读所有</a></th>
+</tr>
+    
+{$itemhtml}
+</table>
+<script>
+function readAll(){
+    if(confirm("确定这样吗?")){
+        $.ajax({
+        url:"/com/api/user/message?do=readAll"
+        ,type:"GET"
+        ,dataType:"json"
+        ,success:function(res){
+            if(res.code==200){
+                layer.msg(res.msg);
+                setTimeout("refresh();",1000);
+            }else{
+                layer.msg(res.msg);
+            }
+        }
+    });
+    }
+}
+function refresh(){
+    window.location.reload();
+}
+</script>

@@ -1,0 +1,67 @@
+<div component="composer" class="composer resizable reply" id="cmp-uuid-3d185bf1-2f3e-4ac8-9d80-87b32196d10d" style="visibility: visible;">
+	<div class="composer-container">
+		<nav class="navbar navbar-fixed-top mobile-navbar visible-xs visible-sm">
+			<div class="pull-left">
+				<a class="btn btn-sm btn-primary composer-submit" style="font-size: 20px;" data-action="discard" tabindex="-1" href="/com/bbs/{$bid}"><i class="fa fa-times"></i></a>
+			</div>
+			
+			<div class="pull-right">
+				<button class="btn btn-sm btn-primary composer-submit" data-action="post" tabindex="5"><i class="fa fa-chevron-right"></i></button>
+			</div>
+			
+			<h4 class="title">正在回复 "{$bbstitle}"</h4>
+			
+		</nav>
+		<div class="row title-container">
+			
+			<div class="col-lg-12 col-md-12">
+				
+				<span class="title form-control">正在回复 "{$bbstitle}"</span>
+				
+			</div>
+			
+			
+		</div>
+
+		<div class="category-tag-row">
+			<div class="btn-toolbar formatting-bar">
+				<div class="btn-group pull-right action-bar hidden-sm hidden-xs">
+					<a class="btn btn-default composer-discard" data-action="discard" tabindex="-1"  href="{$WEBPATH}/bbs/{$bid}"><i class="fa fa-times"></i> 撤销</a>
+
+					<button class="btn btn-primary composer-submit" data-action="post"><i class="fa fa-check"></i> 提交</button>
+				</div>
+			</div>
+		</div>
+        <div id="test-editor"></div>
+	</div>
+</div>
+<script>
+    var editor=loadEditor("test-editor");
+    $('[data-action="post"]').click(function(){//提交评论
+    var bid={$bid};
+    var text=$('[class="write"]').val();
+    var data={type:1,bid:bid,replyText:editor.getContent(),token:{$token}};
+    var type=1;
+    var pushed=false;
+    if(layer!=null){
+        pushed=true;
+        $.ajax({
+        url:"{$WEBPATH}/api/bbs/reply",
+        method:"POST",
+        dataType:"json",
+        data:data,
+        success:function(res){
+            layui.layer.msg(res.msg);
+            if(res.code==200){
+                window.location.href="{$WEBPATH}/bbs/{$bid}";
+                $('[component="composer"]').css("visibility","hidden");
+            }
+        }
+    });
+    }else if(pushed){
+        alert("你已提交成功，请勿重复提交");
+    }else{
+        alert("组件未加载成功,请刷新页面重试");
+    }
+});
+</script>

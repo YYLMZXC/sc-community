@@ -1,0 +1,91 @@
+{loadRes=./res/admin/common/head.html}
+    <body>
+        <div class="x-nav">
+            <span class="layui-breadcrumb">
+                <a href="">首页</a><a><cite>游戏列表</cite></a>
+            </span>
+            <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
+            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+        </div>
+        <table class="layui-table" id="test" lay-filter="demoEvent"></table>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+    <button class="layui-btn layui-btn-sm" lay-event="addGame">添加游戏</button>
+  </div>
+</script>
+<script>
+layui.use('table', function(){
+  var table = layui.table;
+  table.render({
+    elem: '#test'
+    ,toolbar: '#toolbarDemo'
+    ,url:'./api.php?s=getdatalist'
+    ,cellMinWidth: 80
+    ,cellMinHeight:80
+    ,defaultToolbar:[]
+    ,cols: [[
+      {field:'id', minwidth:20, title: 'ID'}
+      ,{field:'gameicon', minWidth:40, title: '游戏图标'}
+      ,{field:'name', minWidth:40, title: '名称'}
+      ,{field:'gameintro', minWidth:40, title: '介绍'}
+      ,{field:'mediasrcs', minWidth:40, title: '视频地址'}
+      ,{field:'agamedown', minWidth:40, title: '下载地址'}
+      ,{field:'gamereg', minWidth:40, title: '注册地址'}
+      ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+    ]]
+    ,page:true
+  });
+   table.on('toolbar(demoEvent)', function(obj){
+    var data = obj.data;
+    if(obj.event == 'addGame'){//添加游戏
+  xadmin.open('添加数据','./game-add.php',600,400)
+}else{
+    layer.msg("不能识别的指令");
+}
+});
+
+//监听工具条
+  table.on('tool(demoEvent)', function(obj){
+    var objdata = obj.data;
+     if(obj.event == 'del'){
+      layer.confirm('确定要删除么', function(index){
+       $.ajax({
+        url:"./"
+        ,type:"GET"
+        ,data:{m:"api",s:"delgame",id:objdata.id}
+        ,dataType:"json"
+        ,success:function(data){
+            if(data.code==0){
+            obj.del();
+            layer.close(index);
+            }else{
+            layer.msg("网络错误");
+            }
+        }
+    });
+      });
+    } 
+    else if(obj.event=='edit'){
+         layer.open({
+                resize: false,
+                title: '【<font color="blue">'+objdata.name+'</font>】修改',
+                shadeClose: true,
+                area: ['600px', '400px'],
+                type: 2,
+                content: './game-edit.php',
+                success: function (layero, index) {
+                    //获取到Window实例
+                    var iframeWin=window[layero.find('iframe')[0]['name']];
+                    iframeWin.Init(objdata.id);
+                }
+            });
+    }
+  });
+});
+</script>
+</html>
+{loadRes=./res/admin/common/foot.html}

@@ -1,0 +1,81 @@
+    <script type="text/javascript">
+        var editor = null;
+        function loadEditor(idname) {
+            editor = editormd(idname, {
+                path: "{$WEBPATH}/editormd/lib/",
+                watch: false,
+                toc: false,
+                emoji: true,
+                taskList: false,
+                imageUpload: true,
+                toolbarIcons: function () {
+                    return ["undo", "redo", "|", "bold", "del", "hr", "italic", "quote", "|", "h1", "h2",
+                        "h3", "h4", "h5", "h6", "|", "list-ul", "list-ol", "hr", "|", "link",
+                        "reference-link", "image", "testIcon", "file", "|", "code", "code-block",
+                        "table", "datetime", "emoji", "|", "html-entities", "preview", "clear", "search"
+                    ]
+                },
+                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL: "{$WEBPATH}/imgupload",
+                toolbarIconsClass: {
+                    testIcon: "fa-upload", // 指定一个FontAawsome的图标类
+                    videoIcon:"fa-upload"
+                },
+                toolbarHandlers: {
+                    testIcon: function (cm, icon, cursor, selection) {
+                        $("#file").click();
+                        $("#file").change(function () {
+                            var form = new FormData();
+                            form.append('file', $('#file')[0].files[0]);
+                            //上传文件
+                            $.ajax({
+                                url: '{$WEBPATH}/fileupload',
+                                type: 'post',
+                                data: form,
+                                dataType: 'json',
+                                cache: false,
+                                processData: false,
+                                contentType: false,
+                                success: function (r) {
+                                    if (r.success == 1) {
+                                        layer.msg(r.message);
+                                        cm.replaceSelection("[:fa-cloud-download: " + r
+                                            .name + "(" + r.size + ")](" + r.url +
+                                            " \"" + r.name + "\")");
+                                        if (selection === "") {
+                                            cm.setCursor(cursor.line, cursor.ch + 1);
+                                        }
+                                    } else if (r.success == 0) { //上传文件有错误信息
+                                        layer.msg(r.message);
+                                    } else {
+                                        layer.msg(r.message);
+                                    }
+                                }
+                            });
+                        });
+                    },
+                    videoIcon:function(cm, icon, cursor, selection){}
+                },
+                toolbarCustomIcons: {
+                    file: "<input type=\"file\" id=\"file\" style=\"display:none;\"/>",
+                },
+                lang: {
+                    toolbar: {
+                        testIcon: "文件上传",
+                        videoIcon: "引用视频"
+                    }
+                },
+                onload: function () {}
+            });
+        }
+        function parseEditor(idname) {
+            editormd.markdownToHTML(idname, {
+                htmlDecode: "style,script", // you can filter tags decode
+                emoji: true,
+                taskList: true,
+                tex: false, // 默认不解析
+                flowChart: false, // 默认不解析
+                sequenceDiagram: false, // 默认不解析
+            });
+        }
+    </script>
