@@ -1,14 +1,32 @@
 <?php
 if(!S('uid')){
-    _print(300,'请先登录');
+    PR(300,'请先登录');
 }else{
     using("System/IO/Upload");
-    $up=new Upload();
-    $up->setHost("https://cdn.schub.top");
-    $up->setNeedDelPath("/www/wwwroot/cdn.aijiajia.xyz/");
-    $res=$up->save($_FILES['file'],"/www/wwwroot/cdn.aijiajia.xyz/bbsfile");
-    if($res['code']>0)die(json_encode(['code'=>300,'message'=>'上传失败','url'=>'']));
-    else{
-        die(json_encode(['code'=>200,'message'=>'上传成功','url'=>$res['downUrl'],'name'=>$res['name'],'size'=>$res['rsize']]));        
+    using("System/IO/Path");
+    $startLen=I('startlen');
+    $endlen=I('endlen');
+    $totallen=I('totallen');
+    $filename=I('fileName');
+    $fileext=I("fileExt");
+    if($fileext!="zip"&&$fileext!='scmod'&&$fileext!='scbtex'&&$fileext!='dae'&&$fileext!='apk'&&$fileext!='jpg'&&$fileext!='png'&&$fileext!='bmp'&&$fileext!='gif'&&$fileext!='rar'){
+        PR(0,"不支持该文件格式的上传".$fileext);
+    }
+    $abpath="/www/wwwroot/cdn.aijiajia.xyz";//绝对路径
+    $filedir="/bbsfile/".date("Y/m/d");//相对路径
+    $downurl=$filedir."/".$filename.".".$fileext;//下载路径
+    $filepath=$abpath.$downurl;//文件绝对路径
+    if(!is_dir($abpath.$filedir))mkdir($abpath.$filedir,0777,true);
+    if(file_exists($filepath))$f=fopen($filepath,"r+");
+    else $f=fopen($filepath,"x+");
+    fseek($f,$startLen);
+    fwrite($f,file_get_contents($_FILES['file']['tmp_name']));
+    fclose($f);
+    unlink($_FILES['file']['tmp_name']);
+    if($_FILES['file']['code']>0)PR(0,$res['msg']);
+    else if($totallen!=$endlen){
+        PR(1,"Succ");
+    }else{
+        PR(2,"上传成功",["_extra"=>['url'=>$downurl,'size'=>filesize($filepath),'name'=>$filename,'type'=>$fileext]]);
     }
 }

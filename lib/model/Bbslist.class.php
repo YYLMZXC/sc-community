@@ -1,7 +1,7 @@
 <?php
 class Bbslist extends XModel{
     //获取该分类下的帖子列表
-    public static function getCateView($cid, $type, $page){
+    public static function GetCateView($cid, $type, $page){
         //1最新2热贴3直播...
         if (empty($type) || !is_numeric($type)) $type = 1;
         $userinfo = []; //用户信息缓存
@@ -27,7 +27,9 @@ class Bbslist extends XModel{
                 $model2 = $model;
                 break;
         }
-        $list = $model2->limit($page * 15, 15)->select();
+        $list = $model2->limit($page, 15)->select();
+        parent::Set('cid',$cid);
+        echo "<!------".count($list)."-$cid----->";
         $str = self::formatBbslist($list, $page, $cid);
         return $str;
     }

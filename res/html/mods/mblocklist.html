@@ -1,15 +1,14 @@
-<h2><a href="/com/mods/list">返回Mod列表</a></h2>
-<h2><a class="xxfunc-btn1 font18px colorB" href="/com/mods/addblockcate/{$id}">添加方块分类</a></h2>
-<h2><a class="xxfunc-btn1 font18px colorB" href="/com/mods/addblock/{$id}">添加方块</a></h2>
-<h2><a class="xxfunc-btn1 font18px" href="#">添加生物</a></h2>
-<h2><a class="xxfunc-btn1 font18px" href="#">添加Buff</a></h2>
-<ul style="margin-top:2em;">
-{$list}
+<ul class="breadcrumb">
+    <li><a href="{$WEBPATH}/mods/list">我的Mod列表</a></li>
+    <li><a href="{$WEBPATH}/mods/list">{$modname}</a></li>
+    <li class="active">方块列表</li>
 </ul>
-<script>
-    function delMod(id){
-        if(confirm("你确定要删除吗?(删除该条将会删除所有日志和相关文件)")){
-            window.location.href="/com/mods/delete/"+id+"?type=1";
-        }
-    }
-</script>
+<div>
+    <a class="btn btn-sm" href="{$WEBPATH}/mods/addblockcate/{$id}">添加方块分类</a>
+    <a class="btn btn-sm" href="{$WEBPATH}/mods/addblock/{$id}">添加方块</a>
+    <a class="btn btn-sm" href="#">添加生物</a>
+    <a class="btn btn-sm" href="#">添加Buff</a>
+</div>
+<ul style="margin-top:2em;">
+{$blisthtml}
+</ul>

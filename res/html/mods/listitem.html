@@ -1,30 +1,30 @@
 <li style="display:flex;text-align: end;margin-top:2em;width:100%; padding: 0 0 5px 0;border-bottom: dashed 1px #000;margin-bottom: 10px;">
     <div style="display:block;width:20%;">
-        <div>{$modflags}</div>
+        <div style="margin-bottom:1em;">{$modflags}</div>
         <div>
     <a href="/com/mods/preview/{$id}" target="_blank">{$fullname}</a>
     </div>
     </div>
     <div style="width: 80%;">
     <div>
-    <a class="xxfunc-btn1 colorB" href="/com/mods/desclist/{$id}">更新日志</a>
-    
+    <a class="btn btn-sm btn-info" href="/com/mods/desclist/{$id}">版本列表</a>
+    <a class="btn btn-sm btn-info" href="/com/mods/missuelist/{$id}">问题/反馈</a>
     </div>
     <div style="margin-top:1em;">
 
 
-    <a class="xxfunc-btn1 colorB" href="/com/mods/mwordlist/{$id}">教程列表</a>
+    <a class="btn btn-sm btn-info" href="/com/mods/mwordlist/{$id}">教程列表</a>
 
-    <a class="xxfunc-btn1 colorB" href="/com/mods/mblocklist/{$id}">方块列表</a>
+    <a class="btn btn-sm btn-info" href="/com/mods/mblocklist/{$id}">方块列表</a>
 
     </div>
 
     
     <div style="margin-top:1em;">
     
-    <a class="xxfunc-btn1 colorB" href="/com/mods/edit/{$id}">编辑</a>
+    <a class="btn btn-sm btn-info" href="/com/mods/edit/{$id}">编辑</a>
     
-    <a class="xxfunc-btn1 colorA" href="javascript:;" onclick="delMod({$id});">删除</a>
+    <a class="btn btn-sm btn-info" href="javascript:;" onclick="delMod({$id});">删除</a>
     </div>
 
     </div>

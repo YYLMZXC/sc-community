@@ -1,12 +1,10 @@
 <?php
 $modid=intval($urlparams['_p0']);
-
 using("model/ModList");
-
 $data=M('modlist')->where(['id'=>$modid])->find();
 XModel::SetTitle($data['fullname']."-发布历史");
 XModel::Set("ifrelease",true);
-
+XModel::Set("id",$modid);
 if($data==false)XModel::error("参数错误");
 if($data['uid']==S('uid'))$userinfo=$user;
 else $userinfo=M('user')->where(['id'=>$data['uid']])->find();

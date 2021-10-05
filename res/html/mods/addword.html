@@ -1,21 +1,40 @@
-<div style="display: flex;align-items: baseline;"><h2 style="width:80%;"><a href="/com/mods/list">返回Mods列表</a></h2>
+<ul class="breadcrumb">
+    <li><a href="/com/mods/list">我的Mod列表</a></li>
+    <li><a href="/com/mods/list">Mod名称</a></li>
+    <li><a href="/com/mods/list">教程列表</a></li>
+    <li class="active">添加教程</li>
+</ul>
 
-<a class="xxfunc-btn1 colorB" style="vertical-align: middle;width: 20%;float: right;"  href="javascript:;" id="addword">添加教程</a></div>
-    <fieldset class="staff_info">
-    <legend>教程标题</legend>
-    <input type="text" name="title" id="title">
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>内容</legend>
-        <div id="test-editor">
-            <textarea style="display:none;"></textarea>
+<div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Submit</h3>
         </div>
-    </fieldset>
+        <div class="panel-body">
+            <button class="btn btn-primary" id="addword">确认添加</button>
+        </div>
+</div>
+
+<div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">教程标题</h3>
+        </div>
+        <div class="panel-body">
+            <input type="text" class="form-control" name="title" id="title">
+        </div>
+</div>
+<div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">内容</h3>
+        </div>
+        <div class="panel-body">
+            <textarea style="display:none;" id="editor"></textarea>
+        </div>
+</div>
 <script type="text/javascript">
-    loadEditor("test-editor");
+    loadEditor("editor");
     $("#addword").click(function(){
         var title=$("#title").val();
-        var text=editor.getMarkdown();
+        var text=editor.getContent();
         var modid={$id};
         var data={modid:modid,title:title,content:text};
         if(title=="")layer.msg("标题不可为空");

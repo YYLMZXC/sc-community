@@ -15,7 +15,7 @@ if ($data == false) { //不存在的账号
     PR(300, '不存在的账号');
 } else {
     if ($data['islock'] == 1) {
-        PR(300, '账号被锁定,不能登陆');
+        PR(300, '账号被锁定,不能登录');
     }
     $pwd = $data['passwd'];
     if (md5($pass) != $pwd) {
@@ -29,6 +29,6 @@ if ($data == false) { //不存在的账号
         M('user')->where(['id' => $data['id']])->save(['error_times' => 0, 'last_login_time' => time()]);
         SS('uid',$data['id']);
         setcookie('user-id',$data['token'],time()+24*3600*30);
-        PR(200, '登陆成功', ['accessToken' => $data['token']]);
+        PR(200, '登录成功', ['accessToken' => $data['token']]);
     }
 }

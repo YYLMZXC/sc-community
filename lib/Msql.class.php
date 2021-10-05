@@ -99,40 +99,85 @@ class Msql{
             $count=0;$breakcount=count($where)-1;
             foreach ($where as $k=>$v){
                 if(is_array($v)){
-                    switch ($v[0]) {
-                        case 'in':
-                            $conditionstr=" $k in (";
-                            foreach($v[1] as $ka=>$va){
-                                $conditionstr.="$va,";
+                    if(is_array($v[0])){//['start_time'=>[['egt',0],['elt',9999]]]
+                    $tmpstr=" (";
+                        foreach ($v as $kc=>$vc){
+                            switch ($vc[0]) {
+                                case 'in':
+                                    $tmpstr=" $k in (";
+                                    foreach($vc[1] as $ka=>$va){
+                                        $tmpstr.="$va,";
+                                    }
+                                    $tmpstr=substr($tmpstr,0,strlen($tmpstr)-1);
+                                    $tmpstr.=") ";
+                                    break;
+                                case 'like':
+                                    $tmpstr.=$k." like '%".$this->safeStr($vc[1])."%'";
+                                    break;
+                                case 'eq':
+                                    $tmpstr.=$k." = "."'".$this->safeStr($vc[1])."'";
+                                    break;
+                                case 'neq':
+                                    $tmpstr.=$k." != "."'".$this->safeStr($vc[1])."'";
+                                    break;
+                                case 'lt':
+                                    $tmpstr.=$k." < "."'".$this->safeStr($vc[1])."'";
+                                    break;
+                                case 'elt':
+                                    $tmpstr.=$k." <= "."'".$this->safeStr($vc[1])."'";
+                                    break;
+                                case 'gt':
+                                    $tmpstr.=$k." > "."'".$this->safeStr($vc[1])."'";
+                                    break;
+                                case 'egt':
+                                    $tmpstr.=$k." >= "."'".$this->safeStr($vc[1])."'";
+                                    break;
+                                    
+                                default:
+                                    // code...
+                                    break;
                             }
-                            $conditionstr=substr($conditionstr,0,strlen($conditionstr)-1);
-                            $conditionstr.=") ";
-                            break;
-                        case 'like':
-                            $conditionstr=$k." like '%".$this->safeStr($v[1])."%'";
-                            break;
-                        case 'eq':
-                            $conditionstr=$k." = "."'".$this->safeStr($v[1])."'";
-                            break;
-                        case 'neq':
-                            $conditionstr=$k." != "."'".$this->safeStr($v[1])."'";
-                            break;
-                        case 'lt':
-                            $conditionstr=$k." < "."'".$this->safeStr($v[1])."'";
-                            break;
-                        case 'elt':
-                            $conditionstr=$k." <= "."'".$this->safeStr($v[1])."'";
-                            break;
-                        case 'gt':
-                            $conditionstr=$k." > "."'".$this->safeStr($v[1])."'";
-                            break;
-                        case 'egt':
-                            $conditionstr=$k." >= "."'".$this->safeStr($v[1])."'";
-                            break;
-                            
-                        default:
-                            // code...
-                            break;
+                            $tmpstr.=" and ";
+                        }
+                    $tmpstr=substr($tmpstr,0,strlen($tmpstr)-5);
+                    $tmpstr.=") ";
+                    $conditionstr.=$tmpstr;
+                    }else{
+                        switch ($v[0]) {
+                            case 'in':
+                                $conditionstr=" $k in (";
+                                foreach($v[1] as $ka=>$va){
+                                    $conditionstr.="$va,";
+                                }
+                                $conditionstr=substr($conditionstr,0,strlen($conditionstr)-1);
+                                $conditionstr.=") ";
+                                break;
+                            case 'like':
+                                $conditionstr=$k." like '%".$this->safeStr($v[1])."%'";
+                                break;
+                            case 'eq':
+                                $conditionstr=$k." = "."'".$this->safeStr($v[1])."'";
+                                break;
+                            case 'neq':
+                                $conditionstr=$k." != "."'".$this->safeStr($v[1])."'";
+                                break;
+                            case 'lt':
+                                $conditionstr=$k." < "."'".$this->safeStr($v[1])."'";
+                                break;
+                            case 'elt':
+                                $conditionstr=$k." <= "."'".$this->safeStr($v[1])."'";
+                                break;
+                            case 'gt':
+                                $conditionstr=$k." > "."'".$this->safeStr($v[1])."'";
+                                break;
+                            case 'egt':
+                                $conditionstr=$k." >= "."'".$this->safeStr($v[1])."'";
+                                break;
+                                
+                            default:
+                                // code...
+                                break;
+                        }
                     }
                     if($count==$breakcount){
                         if(empty($complexString))$returnWhere.=$conditionstr;
@@ -164,6 +209,7 @@ class Msql{
     }
     
     public function where($where){
+        if(empty($where))return $this;
         $this->where=" where ".$this->Combile($where);
         return $this;
     }

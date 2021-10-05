@@ -1,17 +1,17 @@
 <?php
 $modid=intval($urlparams['_p0']);
-$outconfig['id']=$modid;
-$outconfig['subtitle']="教程列表";
+XModel::Set('id',$modid);
+Xmodel::Set('subtitle','教程列表');
 $page=intval(I('page'));
-$total=$msql->table("modwords")->field('count(*) as num')->where(['modid'=>$modid,'uid'=>S('uid')])->find()['num'];
+$total=M("modwords")->field('count(*) as num')->where(['modid'=>$modid,'uid'=>S('uid')])->count();
 $total=intval($total);
-$data=$msql->table("modwords")->where(['modid'=>$modid])->select();
+$data=M("modwords")->where(['modid'=>$modid])->limit($page,$limit)->select();
 $html="";
 foreach($data as $k=>$v){
-    $html.=xxfunc::show("mworditem","mods",$v);
+    $html.=XModel::LoadFrom("mworditem","mods",true,$v);
 }
-$outconfig['list']=$html;
-$container=xxfunc::show("mwordlist","mods",$outconfig);
-$container.=scbbs::pageHtml("/com/mods/mwordlist/$modid",$page,$total);
-$outconfig['container']=$container;
-xxfunc::show("container","model",$outconfig,true);
+
+XModel::Set('list',$html);
+$container=XModel::Load("mwordlist","mods",true);
+$container.=Xmodel::pageHtml("/com/mods/mwordlist/$modid",$page,$total);
+XModel::SetContent($container);

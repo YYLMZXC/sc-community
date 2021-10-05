@@ -65,16 +65,25 @@ if(empty($do)){
         $total=M('directory')->field('count(*) as num')->where(['uid'=>S('uid')])->find()['num'];
         $back="<a href=\"./index?do=manage&page=$page\">返回列表</a>";
         $list=M('directory')->where(['uid'=>S('uid')])->order('addTime','desc')->limit($page,10)->select();
-        $output="";$i=$page*10+1;
+        $output='
+                    <table class="table" style="margin-bottom:2em;">
+                    <tr>
+                        <th>序号</th>
+                        <th>类型</th>
+                        <th>名称</th>
+                        <th>选择操作</th>
+                    </tr>          
+        ';$i=$page*10+1;
         foreach($list as $k=>$v){
             if($v['isShow']==0){$pbtext="发布";$dn="";}
             elseif($v['isShow']==1){$pbtext="取消发布";$dn="btn-danger";}                    
             $p=new Path($v['path']);
-            $output.="<p>$i.<font class=\"bt btn-sm btn-primary\">".Path::GetScTypeText($v['type'])."</font><a href=\"./index?do=manage&lid=".($v['id'])."&ext=view&page=$page\">".$p->getFileName()."</a> (".ceil(($v['size']/1024))."KB)&emsp;<a class=\"btn btn-primary btn-sm\" href=\"javascript:;\" onclick='check(".$v['id'].");'>删除</a>&emsp;<a class=\"btn btn-sm $dn\" href=\"javascript:;\" onclick='publish(".$v['id'].");'>$pbtext</a></p>";
+            $output.="<tr><td>$i</td><td><font class=\"bt btn-sm btn-primary\">".Path::GetScTypeText($v['type'])."</font></td><td><a href=\"./index?do=manage&lid=".($v['id'])."&ext=view&page=$page\">".$p->getFileName()."</a> (".ceil(($v['size']/1024))."KB)&emsp;</td><td><a class=\"btn btn-primary btn-sm\" href=\"javascript:;\" onclick='check(".$v['id'].");'>删除</a>&emsp;<a class=\"btn btn-sm $dn\" href=\"javascript:;\" onclick='publish(".$v['id'].");'>$pbtext</a></td></tr>";
             ++$i;
         }
         if($output=="")$output="<p>还没有文件嗷</p>";
         $output.='
+        </table>
         <script>
         
             function check(id){
@@ -94,7 +103,7 @@ if(empty($do)){
         ';
         $output.=XModel::pageHtml("./index?do=manage",$page,$total);
         XModel::Set("data",$output);
-        XModel::SetContent(XModel::Load("replytomain","bbs"));
+        XModel::SetContent(XModel::Load("worldsview","user"));
     }
     else if($do=="manageadmin"){
         XModel::SetTitle("管理用户上传文件");
@@ -121,6 +130,14 @@ if(empty($do)){
                             <input type="submit" style="width:20%;margin:0 0 0 17px;" value="搜索">
                         </div>
                     </form>
+                    <table  class="table" style="margin-bottom:2em;">
+                    <tr>
+                        <th>序号</th>
+                        <th>类型</th>
+                        <th>用户</th>
+                        <th>名称</th>
+                        <th>选择操作</th>
+                    </tr>                    
                     ';
             $i=$page*10+1;
             foreach($list as $k=>$v){
@@ -131,14 +148,15 @@ if(empty($do)){
                 $uname=$userinfo['nickname'];
                 if(empty($uname))$uname=$userinfo['user'];
                 if(!empty($q)){
-                $output.="<p>$i.<font class=\"bt btn-sm btn-primary\">".Path::GetScTypeText($v['type'])."</font>[<a href='".XModel::Get("WEBPATH")."/user/".$v['uid']."'><font color='green' style=\"font-size:18px\">$uname</font></a>]<a href=\"./index?do=manage&lid=".($v['id'])."&ext=view&page=$page\" style=\"font-size:18px\">".XString::FormatSearch($q,$p->getFileName())."</a> (".ceil(($v['size']/1024))."KB)&emsp;<a class=\"btn btn-primary btn-sm\" href=\"javascript:;\" onclick='check(".$v['id'].");'>删除</a>&emsp;<a class=\"btn btn-sm $dn\" href=\"javascript:;\" onclick='publish(".$v['id'].");'>$pbtext</a></p>";  
+                $output.="<tr><td>$i</td><td><font class=\"bt btn-sm btn-primary\">".Path::GetScTypeText($v['type'])."</font></td><td><a href='".XModel::Get("WEBPATH")."/user/".$v['uid']."'><font color='green' style=\"font-size:18px\">$uname</font></a></td><td><a href=\"./index?do=manage&lid=".($v['id'])."&ext=view&page=$page\" style=\"font-size:18px\">".XString::FormatSearch($q,$p->getFileName())."</a> (".ceil(($v['size']/1024))."KB)&emsp;</td><td><a class=\"btn btn-primary btn-sm\" href=\"javascript:;\" onclick='check(".$v['id'].");'>删除</a>&emsp;<a class=\"btn btn-sm $dn\" href=\"javascript:;\" onclick='publish(".$v['id'].");'>$pbtext</a></td></tr>";  
                 }else{
-                $output.="<p>$i.<font class=\"bt btn-sm btn-primary\">".Path::GetScTypeText($v['type'])."</font>[<a href='".XModel::Get("WEBPATH")."/user/".$v['uid']."'><font color='green' style=\"font-size:18px\">$uname</font></a>]<a href=\"./index?do=manage&lid=".($v['id'])."&ext=view&page=$page\" style=\"font-size:18px\">".$p->getFileName()."</a> (".ceil(($v['size']/1024))."KB)&emsp;<a class=\"btn btn-primary btn-sm\" href=\"javascript:;\" onclick='check(".$v['id'].");'>删除</a>&emsp;<a class=\"btn btn-sm $dn\" href=\"javascript:;\" onclick='publish(".$v['id'].");'>$pbtext</a></p>";                        
+                $output.="<tr><td>$i</td><td><font class=\"bt btn-sm btn-primary\">".Path::GetScTypeText($v['type'])."</font></td><td><a href='".XModel::Get("WEBPATH")."/user/".$v['uid']."'><font color='green' style=\"font-size:18px\">$uname</font></a></td><td><a href=\"./index?do=manage&lid=".($v['id'])."&ext=view&page=$page\" style=\"font-size:18px\">".$p->getFileName()."</a> (".ceil(($v['size']/1024))."KB)&emsp;</td><td><a class=\"btn btn-primary btn-sm\" href=\"javascript:;\" onclick='check(".$v['id'].");'>删除</a>&emsp;<a class=\"btn btn-sm $dn\" href=\"javascript:;\" onclick='publish(".$v['id'].");'>$pbtext</a></td></tr>";                        
                 }
                 ++$i;
             }
             if($output=="")$output="<p>还没有文件嗷</p>";
             $output.='
+            </table>
             <script>
             
                 function check(id){
@@ -158,7 +176,7 @@ if(empty($do)){
             ';
             $output.=XModel::pageHtml("./index?do=manageadmin",$page,$total);
             XModel::Set('data',$output);
-            XModel::SetContent(XModel::Load("replytomain","bbs"));
+            XModel::SetContent(XModel::Load("worldsview","user"));
         
     }
     else if($do=="changeemail"){

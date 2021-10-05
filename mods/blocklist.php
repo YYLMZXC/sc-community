@@ -1,9 +1,11 @@
 <?php
+using("model/ModList");
 $modid=intval($urlparams['_p0']);
 $page=intval(I('page'));
+XModel::Set("id",$modid);
 $data=M('modlist')->where(['id'=>$modid])->find();
-$outconfig['ifblock']=1;
-if($data==false)scbbs::error("参数错误");
+XModel::Set('ifblock',true);
+if($data==false)XModel::error("参数错误");
 if($data['uid']==S('uid'))$userinfo=$user;
 else $userinfo=M('user')->where(['id'=>$data['uid']])->find();
 $blockcate=M("modblockcate")->where(['modid'=>$modid])->select();
@@ -20,4 +22,4 @@ XModel::Set("blockshtml",$blockshtml);
 XModel::Set("flagshtml",ModList::getModsFlags($data['modflags'],14,14,"#ffffff"));
 XModel::Set("modname",$data['fullname']);
 XModel::Set("moddesc",$data['description']);
-XModel::Load("blocklist","mods");
+XModel::Load("blocklist","mods",false);

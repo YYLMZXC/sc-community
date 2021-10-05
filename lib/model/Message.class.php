@@ -32,7 +32,7 @@ style="width:20px;height:20px;border-radius:50%;background-color:red;display: in
         $arr['fromuid']=$fromuser['id'];
         $arr['id']=$msgid;
         $arr['time']=TimeFormat($data['addTime']);
-        $arr['msg']=$data['msg'];
+        $arr['msg']=strip_tags($data['msg']);
         $text=parent::LoadFrom("messageitem","user",true,$arr);
         return $text;
     }

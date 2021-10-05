@@ -3,16 +3,16 @@
     <legend>为【v{$modname}】添加更新日志</legend>
     <form action="/com/mods/adddesc/{$id}?do=submit" method="POST">
     <fieldset class="staff_info">
+    <legend>操作</legend>
+    <input type="button" id="sub" onclick="tijiao()" style="font-size:18px;" value="提交">
+    </fieldset>
+    <fieldset class="staff_info">
     <legend>更新的版本</legend>
     <input type="text" id="modver" placeholder="1.0.0">
     </fieldset>
     <fieldset class="staff_info">
     <legend>内容(说明:一行开始不空为大标题，空两格为小标题集)</legend>
-    <div id="editor"></div>
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>Submit</legend>
-    <input type="button" id="sub" onclick="tijiao()" style="font-size:18px;" value="提交">
+    <div id="editor" style="height:80%"></div>
     </fieldset>
     </form>
     </fieldset>

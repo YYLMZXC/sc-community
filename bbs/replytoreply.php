@@ -14,7 +14,9 @@ XModel::Set("rrid",$rrid);
 XModel::Set("rid",$bbsinfo['rid']);
 XModel::Set("bid",$bbsinfo['bid']);
 XModel::Set('subtitle',"回复".$userinfo['nickname']);
-
+$btoken=XModel::getPublishToken();
+if(empty($btoken)){XModel::setPublishToken();$btoken=XModel::getPublishToken();}
+XModel::Set('token',$btoken);
 if($bbsinfo==false){
     XModel::error("回复被删除或不存在");
 }else{

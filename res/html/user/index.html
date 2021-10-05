@@ -10,8 +10,9 @@
         <a class="btn btn-primary btn-lg btn-block waves-effect" href="./index?do=changeemail">修改邮箱</a>
         <a class="btn btn-primary btn-lg btn-block waves-effect" href="./index?do=changepw">修改密码</a>
         <a class="btn btn-primary btn-lg btn-block waves-effect" href="./index?do=manage">社区存档管理</a>
-        <a class="btn btn-primary btn-lg btn-block waves-effect" href="/com/mods/list" >Mods发布管理</a>
-        {isAdmin}<a class="btn btn-primary colorA btn-lg btn-block waves-effect" href="./index?do=manageadmin">社区存档管理后台</a>{/isAdmin}
+        <a class="btn btn-primary btn-lg btn-block waves-effect" href="{$WEBPATH}/mods/list" >Mods发布管理</a>
+        {::isAdmin}<a class="btn btn-primary btn-warning btn-lg btn-block waves-effect" href="./index?do=manageadmin">社区存档管理后台</a>{/isAdmin}
+        {::isAdmin}<a class="btn btn-primary btn-warning btn-lg btn-block waves-effect" href="{$WEBPATH}/admin/index">网站管理后台</a>{/isAdmin}
         </div>
     </div>
 {loadres="./res/html/common/foot.html"}

@@ -1,115 +1,161 @@
-<style>
-.select {
-		display: inline-block;
-		width: 300px;
-		position: relative;
-		vertical-align: middle;
-		padding: 0;
-		overflow: hidden;
-		background-color: #fff;
-		color: #555;
-		border: 1px solid #aaa;
-		text-shadow: none;
-		border-radius: 4px;	
-		transition: box-shadow 0.25s ease;
-		z-index: 2;
-	}
- 
-	.select:hover {
-		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-	}
- 
-	.select:before {
-		content: "";
-		position: absolute;
-		width: 0;
-		height: 0;
-		border: 10px solid transparent;
-		border-top-color: #ccc;
-		top: 14px;
-		right: 10px;
-		cursor: pointer;
-		z-index: -2;
-	}
-	.select select {
-		cursor: pointer;
-		padding: 10px;
-		width: 100%;
-		border: none;
-		background: transparent;
-		background-image: none;
-		-webkit-appearance: none;
-		-moz-appearance: none;
-	}
- 
-	.select select:focus {
-		outline: none;
+<ul class="breadcrumb">
+    <li><a href="{$WEBPATH}/mods/list">我的Mod列表</a></li>
+    <li><a href="{$WEBPATH}/mods/list">{$modname}</a></li>
+    <li><a href="{$WEBPATH}/mods/mblocklist/{$modid}">方块Buff列表</a></li>
+    <li class="active">添加方块</li>
+</ul>
+<form action="{$WEBPATH}/mods/addblock/{$modid}?do=submit" method="POST" enctype="multipart/form-data">
+
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">名称</h3>
+        </div>
+        <div class="panel-body">
+           <input type="text" name="name" placeholder="名称">
+        </div>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">描述</h3>
+        </div>
+        <div class="panel-body">
+             <input type="text" name="desc" placeholder="描述">
+        </div>
+    </div>
+    
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">最大堆叠</h3>
+        </div>
+        <div class="panel-body">
+            <input type="text" name="max" placeholder="40">
+        </div>
+    </div>
     
     
-</style>
-<h2><a href="/com/mods/mblocklist/{$modid}">返回</a></h2>
-    <fieldset class="staff_info">
-    <legend>添加方块</legend>
-    <form action="/com/mods/addblock/{$modid}?do=submit" method="POST" enctype="multipart/form-data">
-    <fieldset class="staff_info">
-    <legend>名称</legend>
-    <input type="text" name="name" placeholder="名称">
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>描述</legend>
-    <input type="text" name="desc" placeholder="描述">
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>最大堆叠</legend>
-    <input type="text" name="max" placeholder="40">
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>合成标识</legend>
-    <input type="text" name="craftid" placeholder="">
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>合成谱</legend>
-    <input type="text" name="craft" placeholder="">
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>分类(如果没有请先新建分类)</legend>
-    {$blockcatehtml}
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>方块图标<font id="moer" color="green"></font></legend>
-    <input type="hidden" id="icondata" name="icondata">&emsp;
-    <button id="test1" type="button">选择图标</button>
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>Submit</legend>
-    <input type="submit" style="font-size:18px;" value="提交">
-    </fieldset>
-    </form>
-    </fieldset>
-<!--加载layui组件-->
-<script src="/com/res/layui/layui.js" charset="utf-8"></script>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">合成标识</h3>
+        </div>
+        <div class="panel-body">
+           <input type="text" name="craftid" placeholder="">
+        </div>
+    </div>
+    
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">合成谱</h3>
+        </div>
+        <div class="panel-body">
+            <input type="text" name="craft" placeholder="">
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">分类(如果没有请先新建分类)</h3>
+        </div>
+        <div class="panel-body">
+            {$blockcatehtml}
+        </div>
+    </div>
+    
+    
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">方块图标</h3>
+        </div>
+        <div class="panel-body">
+            <div class="progress" style="display:none" id="prshow"><div class="progress-bar progress-bar-success" role="progressbar" id="pr"></div></div>
+            <div id="upshow">
+            <button id="test1" class="btn btn-sm btn-info" type="button">选择图标</button>        
+            <input type="hidden" id="icondata" name="icondata">
+            </div>
+            <div id="sucshow"></div>
+        </div>
+    </div>    
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">提交</h3>
+        </div>
+        <div class="panel-body">
+            <input type="submit" class="btn btn-warning" style="font-size:18px;" value="提交">
+        </div>
+    </div>
+</form>
 <script>
-    layui.use('upload', function(){
+function setcate(id){
+    $("#selectcate").text($("#cate"+id).text());
+    $("#blockcate").val(id);
+}
+  layui.use('upload', function(){
   var $ = layui.jquery
   ,upload = layui.upload;
+  var UpPage=0;
+  var UpStatus=0;
+  var UpTotalPage=0;
+  var UpTotalLen=0;
   var uploadInst = upload.render({
     elem: '#test1'
-    ,url: '/com/imgencode'
-    ,accept:'file'
-    ,before: function(obj){}
-    ,progress: function(n, elem){
-    var percent = n + '%' //获取进度百分比
-    $("#moer").html("(上传中"+percent+")");;
-    }
-    ,done: function(res){
-      if(res.code == 200){
-          $("#icondata").val(res.data);
-          $("#moer").html("(已上传)");
-      }
-        return layer.msg(res.msg);
-    }
-    ,error: function(){
-    }
+    ,url: '/com/fileupload'
+    ,accept:'file',
+    auto: false,
+    choose: function (obj) {
+	    $("#prshow").css("display","block");
+		var data = this.data;
+		var files = obj.pushFile();
+		var LENGTH = 1000 * 1024; //每片文件大小
+		obj.preview(function (index, file, result) {
+			var totalSize = file.size;
+			UpTotalLen=totalSize;
+			UpTotalPage = Math.ceil(totalSize / LENGTH);
+			UpPage=1;
+			UpStatus=1;
+			var fileName = file.name;
+			var fileExt = fileName.substr(fileName.lastIndexOf('.') + 1);
+			fileName = fileName.substr(0, fileName.lastIndexOf('.'));
+			var progressTimer = setInterval(function () {
+				var totalPage = UpTotalPage;
+				var page = UpPage;
+				if (UpTotalPage == UpPage && (UpStatus == 2 || UpStatus == -1)) {
+					clearInterval(progressTimer);
+				} else {
+					if (UpStatus == 1) {
+						UpStatus=0;
+						data.fileName = fileName;
+						data.startlen = (page - 1) * LENGTH;
+						data.endlen = Math.min(page * LENGTH, UpTotalLen);
+						data.totallen = UpTotalLen;
+						data.fileExt = fileExt;
+						obj.upload(index, file.slice((page - 1) * LENGTH, page * LENGTH));
+					}
+				}
+			}, 100);
+		});
+	},
+	done: function (res) {
+		if (res.code == 1) { //分片上传
+			UpPage = UpPage + 1;
+			UpStatus=1;
+			$("#pr").css("width",Math.ceil(UpPage * 100 / UpTotalPage) + '%');
+			console.log(UpPage);
+		} else if (res.code == 2) { //上传完成
+                $("#icondata").val(res.url);
+                $("#upshow").css("display","none");
+                $("#sucshow").css("display","block");
+                $("#sucshow").html("已上传<img src='https://cdn.schub.top"+ res.url +"'>");
+                layer.msg('上传成功', {time: 1000, anim: 0}, function () {});
+		} else { //上传错误
+    			console.log(!typeof (res.downUrl) == "undefined");
+    			if (typeof (res.downUrl) == "undefined") {}
+    			$("#prshow").css("display","none");
+    			layer.msg("上传失败，"+res.msg, {time: 3000, anim: 0}, function () { });
+		}
+	},
+	error: function(){
+	}
   });
     });
 </script>    

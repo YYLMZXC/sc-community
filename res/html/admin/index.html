@@ -25,19 +25,19 @@
         <!-- 顶部开始 -->
         <div class="container">
             <div class="logo">
-                <a href="./?m=bindex">SC中文社区-后台管理系统</a></div>
+                <a href="./index">SC中文社区-后台管理</a></div>
             <div class="left_open">
                 <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
             </div>
             <ul class="layui-nav right" lay-filter="">
                 <li class="layui-nav-item">
-                    <a href="javascript:;">admin</a>
+                    <a href="javascript:;">{$nickname}</a>
                     <dl class="layui-nav-child">
                             <dd><a href="./login.php">退出</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item to-index">
-                    <a href="../">前台首页</a></li>
+                    <a href="{$WEBPATH}/user/index">前台首页</a></li>
             </ul>
         </div>
         <!-- 顶部结束 -->
@@ -53,13 +53,39 @@
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a onclick="xadmin.add_tab('分类列表','./catelist.php')">
+                                <a onclick="xadmin.add_tab('版块列表','./catelist')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>版块列表</cite></a>
                             </li>
                         </ul>
                     </li>
 
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont left-nav-li" lay-tips="Mods管理">&#xe6b8;</i>
+                            <cite>Mods管理</cite>
+                            <i class="iconfont nav_right">&#xe697;</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.add_tab('Mods列表','./modslist')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>Mods列表</cite></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont left-nav-li" lay-tips="游戏公告">&#xe6b8;</i>
+                            <cite>游戏滚动公告管理</cite>
+                            <i class="iconfont nav_right">&#xe697;</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.add_tab('游戏滚动公告管理','./notice')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>游戏滚动公告管理</cite></a>
+                            </li>
+                        </ul>
+                    </li>
 
                     <li>
                         <a href="javascript:;">
@@ -87,9 +113,39 @@
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
-                                <a onclick="xadmin.add_tab('管理员列表','./admin-list.php')">
+                                <a onclick="xadmin.add_tab('会员列表','{$WEBPATH}/admin/memberlist')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>会员列表</cite></a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
+                            <cite>捐赠管理</cite>
+                            <i class="iconfont nav_right">&#xe697;</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.add_tab('捐赠列表','{$WEBPATH}/admin/moneylist')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>捐赠列表</cite></a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe726;</i>
+                            <cite>联机服务器管理</cite>
+                            <i class="iconfont nav_right">&#xe697;</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.add_tab('服务器列表','{$WEBPATH}/admin/serverlist')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>服务器列表</cite></a>
                             </li>
                         </ul>
                     </li>
@@ -121,15 +177,6 @@
         </div>
         <div class="page-content-bg"></div>
         <style id="theme_style"></style>
-        <!-- 右侧主体结束 -->
-        <!-- 中部结束 -->
-        <script>//百度统计可去掉
-            var _hmt = _hmt || []; (function() {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-            })();</script>
     </body>
 
 </html>

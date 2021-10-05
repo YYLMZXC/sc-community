@@ -1,9 +1,9 @@
-<form action="/com/mods/viewlist" style="text-align:center;" method="GET">
-    <div style="display:inline-flex;line-height: 27px;width: 80%;">
-<input type="text" name="q" style="width:80%" placeholder="{$q}">
-<input type="submit" style="width:20%;margin:0 0 0 17px;" value="搜索">
-</div>
-</form>
-<ul>
+    <form action="/com/mods/viewlist" style="text-align:center;" method="GET">
+        <div style="display:inline-flex;line-height: 27px;width: 80%;">
+        <input type="text" name="q" class="form-control" style="width:80%" placeholder="{$q}">
+        <input type="submit" class="btn btn-sm btn-info" style="width:20%;margin:0 0 0 17px;" value="搜索">
+        </div>
+    </form>
+<ul style="padding-left:0;">
     {$lis}
-    </ul>
+</ul>

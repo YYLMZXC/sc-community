@@ -1,6 +1,12 @@
-<h2><a href="/com/mods/list">返回Mods列表</a></h2>
-<h2>更新日志列表</h2>
-<h2 style="width:100%; padding: 0 0 5px 0;border-bottom: dashed 1px #000;margin-bottom: 10px;"><a class="xxfunc-btn1 font18px" href="/com/mods/adddesc/{$id}">添加</a></h2>
+<ul class="breadcrumb">
+    <li><a href="{$WEBPATH}/mods/list">我的Mod列表</a></li>
+    <li><a href="{$WEBPATH}/mods/list">{$modname}</a></li>
+    <li class="active">版本列表</li>
+</ul>
+<div style="margin-bottom:2em;">
+    <a class="btn btn-sm btn-primary" href="{$WEBPATH}/mods/adddesc/{$id}">添加新版本</a>
+</div>
+
 <ul>
     {$list}
 </ul>
@@ -8,7 +14,7 @@
 <script>
     function delMod(id){
         if(confirm("你确定要删除吗?(删除该条将会删除所有相关文件)")){
-            window.location.href="/com/mods/delete/"+id+"?type=2";
+            window.location.href="{$WEBPATH}/mods/delete/"+id+"?type=2";
         }
     }
 </script>

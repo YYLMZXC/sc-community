@@ -3,6 +3,24 @@
 class XModel{
     public static $Conf=[];
     
+    public static function GetIssueStat($stat){
+        switch ($stat) {
+            case 0:return "待处理";
+            case 1:return "进行中";
+            case 2:return "已完成";
+            case 3:return "已拒绝";
+        }
+        return "未知";
+    }
+    public static function GetIssueColor($stat){
+        switch ($stat) {
+            case 0:return "gray";
+            case 1:return "blue";
+            case 2:return "green";
+            case 3:return "red";
+        }
+        return "black";
+    }
     //设置Title
     public static function SetTitle($t){
         self::Set("webTitle",$t);
@@ -15,11 +33,16 @@ class XModel{
     }
     //登出
     public static function Logout(){
-        SS("uid","");
-        if(isset($_COOKIE["user-id"]))
+        $_SESSION = array();
+        session_destroy();
+        if(!empty(C("userid")))
         {
-          setcookie("user-id",'',time()-3600,'/');
+            CD("userid");
         }
+        if(!empty(C("user-id")))
+        {
+            CD("user-id");
+        }        
     }
         //阅读所有消息
     public static function readAllMessage(){
@@ -29,15 +52,19 @@ class XModel{
     public static function readMessage($msgid){//阅读信息
         $data=M('message')->where(['id'=>$msgid])->find();
         M('message')->where(['id'=>$msgid])->save(['noread'=>0]);
-        if($data['type']==1)header('Location:/com/bbs/'.$data['bid']);
-        else if($data['type']==2)header('Location:/com/bbs/replytolist/'.$data['rid']);
+        switch($data['type']){
+            case 1:header('Location:/com/bbs/'.$data['bid']);break;
+            case 2:header('Location:/com/bbs/replytolist/'.$data['rid']);break;
+            case 4:header('Location:/com/mods/issue/'.$data['bid']);break;
+            default:XModel::error("未知消息类型");
+        }
     }
     //生成token
     public static function makeToken(){
         return md5(time().rand(10000,99999));
     }
     public static function setPublishToken(){
-        SS('publish-token',rand(10000,99999).time());
+        SS('publish-token',self::makeToken());
     }
     public static function getPublishToken(){
         return S('publish-token');
@@ -210,7 +237,7 @@ class XModel{
     }
     //匹配变量
     public static function loadRegxVar($res,$params){
-        $pat='/\{\$([a-zA-Z]*)(.*?)\}/';//匹配符
+        $pat='/\{\$([a-zA-Z]*)\}/';//匹配符
         preg_match_all($pat,$res,$outvars);
         foreach($outvars[1] as $k=>$v){
             if(!self::isempty($outvars[2][$k])){//数组变量
@@ -230,7 +257,7 @@ class XModel{
     }
     //匹配条件
     public static function loadRegxCon($res,$params){
-        $pat='/\{([a-zA-Z]+)\}([\s\S]*?){\/([a-zA-Z]+)}/';//匹配符
+        $pat='/\{::([a-zA-Z]+)\}([\s\S]*?){\/([a-zA-Z]+)}/';//匹配符
         preg_match_all($pat,$res,$outvars);
         foreach($outvars[1] as $k=>$v){
             if(self::isempty($params[$v])){
@@ -320,11 +347,11 @@ class XModel{
             $mtodisable=$d;
         }
         $html='<ul class="pagination lv-pagination" style="background:#717171;">';
-        $html.='<li class="first '.$mmbackdisable.'"><a href="'.$href.'1"><i class="fa fa-fast-backward" style="line-height:inherit"></i></a></li>';
-        $html.='<li class="'.$mbackdisable.'"><a href="'.$href.$mback.'" aria-label="Previous"><i class="fa fa-chevron-left" style="line-height:inherit"></i></a></li>';
-        $html.='<li class="'.$pagedisable.'" onclick="openpage();" class="page select-page"><a style="width: max-content;padding: 0 .5em;line-height:40px;" href="javascript:;">'.$page.' / '.$total.'</a></li>';
-        $html.='<li class='.$mtodisable.'><a href="'.$href.$mto.'" aria-label="Next"><i class="fa fa-chevron-right" style="line-height:inherit"></i></a></li>';
-        $html.='<li class="last '.$mmtodisable.'"><a href="'.$href.$total.'"><i class="fa fa-fast-forward" style="line-height:inherit"></i> </a></li>';
+        $html.='<li style="display:inline-block;" class="first '.$mmbackdisable.'"><a href="'.$href.'1"><i class="fa fa-fast-backward" style="line-height:inherit"></i></a></li>';
+        $html.='<li style="display:inline-block;" class="'.$mbackdisable.'"><a href="'.$href.$mback.'" aria-label="Previous"><i class="fa fa-chevron-left" style="line-height:inherit"></i></a></li>';
+        $html.='<li style="display:inline-block;" class="'.$pagedisable.'" onclick="openpage();" class="page select-page"><a href="javascript:;" style="width:auto;">'.$page.' / '.$total.'</a></li>';
+        $html.='<li style="display:inline-block;" class='.$mtodisable.'><a href="'.$href.$mto.'" aria-label="Next"><i class="fa fa-chevron-right" style="line-height:inherit"></i></a></li>';
+        $html.='<li style="display:inline-block;" class="last '.$mmtodisable.'"><a href="'.$href.$total.'"><i class="fa fa-fast-forward" style="line-height:inherit"></i> </a></li>';
         $html.="</ul>";
         $html.='<div id="bootbox" class="bootbox modal fade bootbox-prompt in hidden" tabindex="-1" role="dialog" style="display:block; padding-right: 17px;"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×</button><h4 class="modal-title">输入页码</h4></div><div class="modal-body"><div class="bootbox-body"><form class="bootbox-form"><input class="bootbox-input bootbox-input-text form-control" id="pageNu" autocomplete="off" type="text"></form></div></div><div class="modal-footer"><button data-bb-handler="cancel" type="button" class="btn btn-default">取消</button><button data-bb-handler="confirm" type="button" class="btn btn-primary">确认</button></div></div></div></div><script>function openpage(){
         $("#bootbox").removeClass("hidden");

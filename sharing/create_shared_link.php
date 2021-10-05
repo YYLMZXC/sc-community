@@ -4,7 +4,7 @@
 //
 //对文件创建链接
 if(empty(S('uid'))){
-    _print(300,'请先登录'.$auth);
+    PR(300,'请先登录'.$auth);
 }
 $fileinfo=json_decode(getPostRaw(),true);
 //获取用户信息

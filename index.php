@@ -5,26 +5,45 @@ $limit=intval(I("limit"));
 if(empty($limit))$limit=10;
 if($page<=1)$page=1;
 $page-=1;//默认减去1
+//处理黑名单
+if($ip=="171.44.103.220")XModel::error("404");
+
 $auth=GetAuthCode();//获取游戏内社区发送过来的Auth信息
 $user=[];
-if(empty(S('uid'))&&!empty($auth)){
-    $user=M('user')->where(['token'=>$auth])->find();
-    if($user!=false){
-        SS('uid',$user['id']);
+if(I('pl')!="logout"){
+    if(empty(S('uid'))&&!empty($auth)){//auth登录
+        $user=M('user')->where(['token'=>$auth])->find();
+        if($user!=false){
+            SS('uid',$user['id']);
+        }
     }
-}else{
-    $user=M('user')->where(['id'=>S('uid')])->find();
+    if(!empty(S('uid'))){
+        $user=M('user')->where(['id'=>S('uid')])->find();
+        $noreadCount=M("message")->where(['uid'=>S('uid'),'noread'=>1])->count();
+    }
+    //有cookie
+    if(C('userid')&&empty(S('uid'))){
+        $user=M('user')->where(['token'=>C('userid')])->find();
+        if(!empty($user))SS('uid',$user['id']);
+    }else if(!empty(S('uid'))&&empty(C('userid'))){
+        CS('userid',$user['token'],24*30*3600);
+    }
 }
-if(!empty(S('uid'))){
-    $qmsg=M("message")->field("count(*) as num")->where(['uid'=>S('uid'),'noread'=>1])->find();
-    $noreadCount=intval($qmsg['num']);
-}
-//有cookie
-if($_COOKIE['user-id']&&empty(S('uid'))){
-    $user=M('user')->where(['token'=>$_COOKIE['user-id']])->find();
-    if(!empty($user))SS('uid',$user['id']);
-}else if(!empty(S('uid'))&&empty($_COOKIE['user-id']))setcookie('user-id',$user['token'],time()+24*30*3600);
 
+//访问记录
+$ip=$_SERVER['REMOTE_ADDR'];
+$ick = M("onlines")->field('id,times')->where(['ip'=>$ip])->find();
+if(empty($ick))M("onlines")->add(['ip'=>$ip,'livetime'=>time(),'uid'=>$user['id'],'times'=>1,'pl'=>I('pl')]);
+else M("onlines")->where(['id'=>$ick['id']])->save(['livetime'=>time(),'uid'=>$user['id'],'times'=>$ick['times']+1,'pl'=>I('pl')]);
+$livecount=M("onlines")->where(['livetime'=>['egt',time()-300]])->count();
+
+if($user['islock']){
+    XModel::Logout();
+    XModel::Set("error","该账号已被锁定");
+    XModel::Set("ifnologin","true");
+    XModel::Set("headicon","");
+    XModel::Load('error','index',false);
+}
 XModel::Set("user",$user);
 XModel::Set("prevpage",$page);
 XModel::Set("page",$page);
@@ -33,17 +52,15 @@ XModel::Set("nextpage",$page+2);
 XModel::Set("WEBPATH",WEB_PATH);
 XModel::Set("subtitle","主页");
 XModel::Set("CDNURL","https://cdn.schub.top");
-
-if($noreadCount>0)XModel::Set("msgnoread","<a href=\"/com/user/message\" style=\"padding: 0px 4px;margin: 12px;\" class=\"message\">".$noreadCount."</a>");
+if($noreadCount>0)$msgnoreadhtml='<a href="'.XModel::Get("WEBPATH").'/user/message"><span class="badge pull-left" style="background:red;">'.$noreadCount.'</span></a>';
+XModel::Set("headicon",$msgnoreadhtml.'<a href="'.XModel::Get("WEBPATH").'/user/index">'.XModel::getHeadimg($user['headimg'],$user['nickname']).'</a>');
 XModel::Set("iflogin",!empty(S('uid')));
 XModel::Set("ifnologin",!XModel::Get("iflogin"));
-XModel::Set("headicon",XModel::getHeadimg($user['headimg'],$user['nickname']));
 XModel::Set("logosvg",XModel::loadsvg("logo",24,24,"#ffffff"));
 XModel::Set("serverurl",'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
-XModel::Set("onlinecnt",1);
+XModel::Set("onlinecnt",$livecount);
 XModel::Set("SiteName","SC中文社区");
 XModel::SetTitle(XModel::Get("SiteName"));
-
 
 $indexList=M("bbslist")->field("id,title,flags")->where(['IsIndex'=>1])->select();
 $indexListHtml="";
@@ -57,11 +74,8 @@ foreach ($indexList as $k=>$v){
     $indexListHtml.='<div class="listview lv-bordered lv-lg">'.$imgsxx.'<a href="'.XModel::Get("WEBPATH").'/bbs/'.$v['id'].'">'.$v['title'].'</a></div>';
 }
 XModel::Set("IndexList",$indexListHtml);
+if(!empty($user['isadmin']))XModel::Set("isAdmin",$user['isadmin']);
 
-
-if($user['authority']==2||$user['authority']==3){
-    XModel::Set("isAdmin",true);
-}
 $_p=I('pl');//路径
 $urlparams="";//剩余的url参数
 if(empty($_p)){//空的参数

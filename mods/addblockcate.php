@@ -3,11 +3,12 @@
 $modid=intval($urlparams['_p0']);
 $do=I('do');
 $name=I('name');
-
-XModel::SetTitle($modinfo['fullname']."-添加方块分类");
+$data=M("modlist")->field("uid,name")->where(['id'=>$modid])->find();
+XModel::SetTitle($data['name']."-添加方块分类");
 if($modid==0)XModel::error('错误的参数');
 if($do!='submit'){
     XModel::Set("modid",$modid);
+    XModel::Set("modname",$data['name']);
     XModel::SetContent(XModel::Load("addblockcate","mods"));
 }else{
     if(empty($name)){

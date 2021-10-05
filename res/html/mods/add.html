@@ -1,52 +1,94 @@
-<h2><a href="/com/mods/list">返回列表</a></h2>
-    <fieldset class="staff_info">
-    <legend>添加Mod</legend>
+<ul class="breadcrumb">
+    <li><a href="/com/mods/list">我的Mod列表</a></li>
+    <li class="active">添加Mod</li>
+</ul>
 <form action="/com/mods/add?do=submit" method="POST">
-    <fieldset class="staff_info" style="line-height: initial;">
-    <legend>Mod标签(可多选)</legend>
-    {$flags}
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>简称</legend>
-    <input type="text" name="name">
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>全称</legend>
-    <input type="text" name="fullname">
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>英文名称</legend>
-    <input type="text" name="enname">
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>简介</legend>
-    <textarea name="desc" rows="5" cols="40"></textarea>
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>作者</legend>
-    <input type="text" name="author">
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>适用游戏版本(多个用|隔开)</legend>
-    <input type="text" name="appver">
-    <input type="hidden" name="flags" id="flags">
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>Submit</legend>
-    <input type="submit" style="font-size:18px;" value="提交">
-    </fieldset>
-    </form>
-    </fieldset>
-    <script>
-    var flags=[];
-    function selectop(context){
-        if(context.hasClass("flag-select")){
-            context.removeClass("flag-select");
-            flags.pop(context.attr('data-id'));
-        }else{
-            flags.push(context.attr('data-id'));
-            context.addClass("flag-select");
-        }
-        $("#flags").val(JSON.stringify(flags));
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Mod标签(可多选)</h3>
+        </div>
+        <div class="panel-body">
+            <div class=" list-group list-group-horizontal">
+            {$flagshtml}
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">简称</h3>
+        </div>
+        <div class="panel-body">
+            <input type="text" name="name" class="form-control" value="{$name}">
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">全称</h3>
+        </div>
+        <div class="panel-body">
+            <input type="text" name="fullname" class="form-control" value="{$fullname}">
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">英文名称</h3>
+        </div>
+        <div class="panel-body">
+            <input type="text" name="enname" class="form-control" value="{$enname}">
+        </div>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">简介</h3>
+        </div>
+        <div class="panel-body">
+            <textarea name="desc" rows="5" class="form-control" cols="40">{$description}</textarea>
+        </div>
+    </div>    
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">作者</h3>
+        </div>
+        <div class="panel-body">
+            <input type="text" name="author" class="form-control" value="{$author}">
+        </div>
+    </div>    
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">适用游戏版本(多个用|隔开)</h3>
+        </div>
+        <div class="panel-body">
+            <input type="text" name="appver" class="form-control" value="{$appver}">
+            <input type="hidden" id="flags" name="flags" class="form-control" value="{$modflags}">
+        </div>
+    </div>    
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Submit</h3>
+        </div>
+        <div class="panel-body">
+            <input type="submit" class="btn btn-info" value="提交">
+        </div>
+    </div>
+</form>
+<script>
+var flags=[];
+var d=$("#flags").val();
+var f=JSON.parse(d);
+for(var i=0;i<f.length;i++){
+    var othis=$("[data-id="+f[i]+"]");
+    othis.addClass("active");
+    flags.push(f[i]);
+}
+$(".list-group-item").click(function(othis){
+    var context=$(othis.currentTarget);
+    if(context.hasClass("active")){
+        context.removeClass("active");
+        flags.pop(context.attr('data-id'));
+    }else{
+        flags.push(context.attr('data-id'));
+        context.addClass("active");
     }
-    </script>
+    $("#flags").val(JSON.stringify(flags));
+});
+</script>

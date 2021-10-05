@@ -1,8 +1,8 @@
 <html>
 {loadres="./res/html/common/head.html"}
     <div class="container" id="content">
-        {iferr}<p><font color="{$iferr[tipcolor]}">{$iferr[tip]}</font></p>{/iferr}
-        {succ}<script>window.location.href="/com";</script>{/succ}
+        {::iferr}<p><font color="{$iferr[tipcolor]}">{$iferr[tip]}</font></p>{/iferr}
+        {::succ}<script>window.location.href="/com";</script>{/succ}
         <div class="login">
         <form class="form-horizontal" action="./index?do=changepw&ext=submit" method="POST" id="login-form">
             <div class="login-block">

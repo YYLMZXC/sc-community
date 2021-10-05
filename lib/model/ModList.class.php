@@ -69,6 +69,26 @@ class ModList extends XModel{
         }
         return $out;
     }  
-    
+    //格式化TagItem的Li列表
+    public static function formatLiList($moddownlist){
+        $html="";
+        foreach($moddownlist as $k=>$v){
+            $html.=parent::LoadFrom("liitem","mods",true,$v);
+        }
+        return $html;
+    }
+    public static function formatBlockCate($cdata){
+        $html='
+        <div class="dropdown">
+            <input type="hidden" name="cate" id="blockcate">
+            <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"><font id="selectcate">请选择</font><span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+        ';
+        foreach ($cdata as $k=>$v){
+            $html.='<li role="presentation"><a role="menuitem" id="cate'.$v['id'].'" onclick="setcate('.$v['id'].');" href="javascript:void(0);">'.$v['name'].'</a></li>';
+        }
+        $html.='</ul>';
+        return $html;
+    }
     
 }

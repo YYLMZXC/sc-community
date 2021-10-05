@@ -6,8 +6,9 @@
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <meta itemprop="name" content="{$webTitle}"/>
     <meta itemprop="image" content="https://cdn.schub.top/logo.png" />
-    <meta name="description" itemprop="description" content="{$description}" />    
+    <meta name="description" itemprop="description" content="{$description}" />
     <link rel="stylesheet" type="text/css" href="//cdn.schub.top/res/autojs/stylesheet.css?v=kjegqm0trfo" />
+    <link rel="stylesheet" type="text/css" href="//cdn.schub.top/res/layui/css/layui.css?ver=202108231729" />
     <link rel="prefetch stylesheet" href="//cdn.schub.top/res/autojs/railscasts.css" />
     <style>
     body {
@@ -27,169 +28,77 @@
     .layui-upload-file {
         display: none !important;
     }
+    
+    .list-group-horizontal .list-group-item {
+		display: inline-block;
+	}
+	.list-group-horizontal .list-group-item {
+		margin-bottom: 0;
+		margin-left:-4px;
+		margin-right: 0;
+	}
+	.list-group-horizontal .list-group-item:first-child {
+		border-top-right-radius:0;
+		border-bottom-left-radius:4px;
+	}
+	.list-group-horizontal .list-group-item:last-child {
+		border-top-right-radius:4px;
+		border-bottom-left-radius:0;
+	}    
     </style>
-    <style>
-    .flag-select {
-        background: #000 !important;
-    }
-    .staff_info {
-        background: rgba(255, 255, 255, .3);
-        border-color: rgba(0, 0, 0, .6);
-        border-style: solid;
-        border-width: 2px;
-        -moz-border-radius: 5px;
-        -webkit-border-radius: 5px;
-        -khtml-border-radius: 5px;
-        border-radius: 5px;
-        line-height: 30px;
-        list-style: none;
-        padding: 5px 10px;
-        margin-bottom: 2px;
-    }
-    .staff_info legend {
-        color: #000000;
-        font: bold 16px/2 Verdana, Geneva, sans-serif;
-        font-weight: bold;
-        text-align: left;
-        text-shadow: 2px 2px 2px rgb(88, 126, 156);
-    }
-    table {
-    	width: 100%;
-    	padding: 0;
-    	margin: 0;
-    }
-     
-    caption {
-    	padding: 0 0 5px 0;
-    	width: 700px;	 
-    	font: italic 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-    	text-align: right;
-    }
-     
-    th {
-    	font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-    	color: #4f6b72;
-    	border-right: 1px solid #C1DAD7;
-    	border-bottom: 1px solid #C1DAD7;
-    	border-top: 1px solid #C1DAD7;
-    	letter-spacing: 2px;
-    	text-transform: uppercase;
-    	text-align: left;
-    	padding: 6px 6px 6px 12px;
-    	background: #CAE8EA url(images/bg_header.jpg) no-repeat;
-    }
-     
-    th.nobg {
-    	border-top: 0;
-    	border-left: 0;
-    	border-right: 1px solid #C1DAD7;
-    	background: none;
-    }
-     
-    td {
-    	border-right: 1px solid #C1DAD7;
-    	border-bottom: 1px solid #C1DAD7;
-    	border-left: 1px solid #C1DAD7;
-    	background: #fff;
-    	padding: 6px 6px 6px 12px;
-    	color: #4f6b72;
-    }
-     
-     
-    td.alt {
-    	background: #F5FAFA;
-    	color: #797268;
-    }
-     
-    th.spec {
-    	border-left: 1px solid #C1DAD7;
-    	border-top: 0;
-    	background: #fff url(images/bullet1.gif) no-repeat;
-    	font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-    }
-     
-    th.specalt {
-    	border-left: 1px solid #C1DAD7;
-    	border-top: 0;
-    	background: #f5fafa url(images/bullet2.gif) no-repeat;
-    	font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-    	color: #797268;
-    }
-    .message {
-        background: red;
-        border-radius: 0.2em;
-        font-weight: bolder;
-        color: white;
-    }
-    </style>
-    <style>
-        .xxfunc-btn1 {
-            background-color: #009688;
-            color: #fff !important;
-            white-space: nowrap;
-            text-align: center;
-            border: none;
-            border-radius: 2px;
-            cursor: pointer;
-            height: 22px;
-            line-height: 22px;
-            padding: 0 5px;
-            font-size: 14px;
-            margin-left: 10px;
-
-            display: inline-block;
-        }
-
-        .colorA {
-            background-color: #FF5722;
-        }
-
-        .colorB {
-            background: #05a;
-        }
-
-        .font18px {
-            font-size: 18px;
-        }
-
-        .font24px {
-            font-size: 24px;
-        }
-
-        .marginA {
-            margin-top: 1em;
-        }
-
-        .marginB {
-            margin-top: .3em;
-        }
-
-        .fLeft {
-            float: left;
-        }
-
-        .fRight {
-            float: right;
-        }
-
-        .fullW {
-            width: 100%;
-        }
-    </style>
+	<script type="text/javascript" src="//cdn.schub.top/highlight/scripts/shCore.js"></script>
+	<script type="text/javascript" src="//cdn.schub.top/highlight/scripts/shBrushCSharp.js"></script>
+	<script type="text/javascript" src="//cdn.schub.top/highlight/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="//cdn.schub.top/highlight/scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="//cdn.schub.top/highlight/scripts/shBrushXml.js"></script>
+	<script type="text/javascript" src="//cdn.schub.top/highlight/scripts/shBrushJScript.js"></script>
+	<script type="text/javascript" src="//cdn.schub.top/highlight/scripts/shBrushCss.js"></script>
+	<link type="text/css" rel="stylesheet" href="//cdn.schub.top/highlight/styles/shCoreDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
     <!--QQ分享组件-->
     <script src="//qzonestyle.gtimg.cn/qzone/qzact/common/share/share.js"></script>
     <!--Neditor-->
-    <script type="text/javascript" charset="utf-8" src="{$WEBPATH}/neditor/neditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="{$WEBPATH}/neditor/neditor.all.min.js"> </script>
-    <script type="text/javascript" charset="utf-8" src="{$WEBPATH}/neditor/neditor.service.js"></script>
-    <script type="text/javascript" charset="utf-8" src="{$WEBPATH}/neditor/i18n/zh-cn/zh-cn.js"></script>
-
-    <script type="text/javascript" src="{$WEBPATH}/neditor/third-party/browser-md5-file.min.js"></script>
-    <script type="text/javascript" src="{$WEBPATH}/neditor/third-party/jquery-1.10.2.min.js"></script>
-
+    <!-- include libraries(jQuery, bootstrap) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- include summernote css/js -->
+    <link href="https://cdn.schub.top/summernote/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.schub.top/summernote/summernote.min.js"></script>
+    <script src="https://cdn.schub.top/summernote/lang/summernote-zh-CN.js"></script>
     <script type="text/javascript">
         function loadEditor(id){
-            return UE.getEditor(id);
+            var editor=$("#"+id);
+            editor.summernote({
+                lang:'zh-CN', 
+                placeholder: '请在此输入内容...(移动端推荐全屏模式进行编辑)',
+                minHeight: 300,
+                callbacks : {
+                    onImageUpload : function(files) { 
+                        var form=new FormData();
+                        form.append('file',files[0])
+                        $.ajax({
+                            type:"post",
+                            url:"/com/imgupload", //上传服务器地址
+                            dataType:'json',
+                            data:form,
+                            processData : false,
+                            contentType : false,
+                            cache : false,
+                            success:function(data){
+                              editor.summernote('editor.insertImage',data.url);
+                            }
+                        })
+                    }
+                }                
+            });
+            editor.getContent=function(){
+                return editor.summernote("code");
+            };
+            editor.setContent=function(content){
+                return editor.summernote("code",content);
+            }
+            return editor;
         }
         function BASE64() {
         
@@ -297,7 +206,7 @@
         window.Base64=new BASE64();
     </script>
     <!--加载layui组件-->
-    <script src="//cdn.schub.top/res/layui/layui.all.js" charset="utf-8"></script>
+    <script src="//cdn.schub.top/res/layui/layui.js" charset="utf-8"></script>
     <!--剪切板组件-->
     <!--<script src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>-->
     <script>
@@ -334,6 +243,7 @@
     }
     </script>
 </head>
+<div class="alert alert-danger">社区UI改版中，期间部分功能无法使用，敬请谅解。</div>
 <div id="header-menu">
     <div class="material-load-bar" id="material-load-bar" style="height: 0px;">
         <div class="material-bar"></div>
@@ -377,7 +287,7 @@
                             Mods百科
                         </a>
                     </li>
-                    {iflogin}
+                    {::iflogin}
                     <li class="">
                         <a class="navigation-link" href="javascript:;" onclick="logout();" title="退出">
                             <svg style="vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -407,45 +317,15 @@
                             <div class="progress-container">
                                 <div class="progress-bar"></div>
                             </div>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <input type="text" class="form-control" id="indexInput" placeholder="输入索引">
-                                </li>
-                            </ul>
                         </div>
                     </li>
-
-                    <li>
-                        <a href="#" id="reconnect" class="hide" title="连接丢失，正在尝试重连...">
-                            <i class="fa fa-check"></i>
-                        </a>
-                    </li>
                     <li class="visible-xs">
-                        {ifnologin}
-                        <a href="/com/login" id="headicon">
-                            <span>登录</span>
-                        </a>
-                        {/ifnologin}
-                        {iflogin}
-                        <a href="/com/user/index" id="headicon">
-                            {$msgnoread}
-                            {$headicon}
-                        </a>
-                        {/iflogin}
+                        {::ifnologin}<a href="/com/login" id="headicon"><span>登录</span></a>{/ifnologin}
+                        {::iflogin}{$headicon}{/iflogin}
                     </li>
                     <li class="hidden-xs">
-                        {ifnologin}
-                        <a href="/com/login" id="headicon">
-                            <span>登录</span>
-                        </a>
-                        {/ifnologin}
-                        {iflogin}
-                        <a href="/com/user/index" id="headicon">
-                            {$msgnoread}
-                            {$headicon}
-                        </a>
-                        {/iflogin}
+                        {::ifnologin}<a href="/com/login" id="headicon"><span>登录</span></a>{/ifnologin}
+                        {::iflogin}{$headicon}{/iflogin}
                     </li>
 
                 </ul>
@@ -465,14 +345,14 @@
                             <label for="tw-switch" class="ts-helper"></label>
                         </div>
                     </li>
-                    {ifnologin}
+                    {::ifnologin}
                     <li class="visible-xs">
                         <a href="{$WEBPATH}/login">
                             <i class="fa fa-sign-in fa-fw"></i> 登录
                         </a>
                     </li>
                     {/ifnologin}
-                    {iflogin}
+                    {::iflogin}
                     <li class="">
                         <a href="{$WEBPATH}/user/index" title="个人中心">
                             <svg width="18" height="18" style="vertical-align: middle;" xmlns="http://www.w3.org/2000/svg"
@@ -509,7 +389,7 @@
                         </a>
                     </li>
 
-                    {iflogin}
+                    {::iflogin}
                     <li class="">
                         <a href="javascript:;" onclick="logout();" title="登出">
                             <i class="fa fa-fw fa-suitcase"></i>

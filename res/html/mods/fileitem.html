@@ -1,5 +1,13 @@
-<li style="width:100%; padding: 0 0 5px 0;border-bottom: dashed 1px #11aa55;margin-bottom: 10px;">
-    <div class="marginB fullw">
-    <font>{$name}</font>    <a class="xxfunc-btn1 colorA fRight" href="javascript:;" onclick="delMod({$id});">删除</a>
+<li style="display:flex;text-align: end;padding: 0 0 5px 0;border-bottom: dashed 1px #aa44aa;margin-bottom: 10px;">
+    <div><font>{$name}</font></div>
+    <div style="width:100%;">
+        <a class="btn btn-sm btn-info" href="javascript:;" onclick="delMod({$id});">删除</a>
     </div>
-    </li>
+</li>
+<script>
+    function delMod(id){
+        if(confirm("你确定要删除吗?")){
+            window.location.href="{$WEBPATH}/mods/delete/"+id+"?type=3";
+        }
+    }
+</script>

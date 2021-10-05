@@ -1,3 +1,20 @@
 <?php
 if(!XModel::Get("isAdmin"))XModel::error("你还没有权限");
+$bbscount=M("bbslist")->field("count(*) as num")->find()['num'];
+$usercount=M("user")->field("count(*) as num")->find()['num'];
+$replycount=M("bbsreply")->field("count(*) as num")->find()['num'];
+$filecount=M("directory")->field("count(*) as num")->find()['num'];
+$nickname=$user['nickname'];
+XModel::Set('nickname',$nickname);
+XModel::Set('bbscount',$bbscount);
+XModel::Set('usercount',$usercount);
+XModel::Set('replycount',$replycount);
+XModel::Set('nowtime',TimeFormat(time()));
+XModel::Set('OSNAME',php_uname('s'));
+XModel::Set('ENVIR',$_SERVER["SERVER_SOFTWARE"]);
+XModel::Set('PHPVER',PHP_VERSION);
+XModel::Set('FREESPACE',GetFileSize(disk_free_space('.')));
+XModel::Set('PHPSAPI',PHP_SAPI);
+XModel::Set('UPLOADMAX',ini_get("post_max_size"));
+XModel::Set("filecount",$filecount);
 XModel::Load("welcome","admin",false);

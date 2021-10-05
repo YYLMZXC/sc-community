@@ -38,6 +38,17 @@ function Debug($arr){
     die(print_r($arr));
 }
 
+function C($n){
+    return $_COOKIE[$n];
+}
+function CS($n,$v,$t=3600){
+    setcookie($n,$v,time()+$t);
+}
+function CD($n){
+    setcookie($n,null);
+}
+
+
 //设置SESSION
 function SS($n,$v){
     $_SESSION[$n]=$v;
@@ -46,6 +57,20 @@ function UEPR($state,$url="",$title=""){
     if($state)$str="SUCCESS";
     else $str="FAIL";
     die(json_encode(['state'=>"SUCCESS",'url'=>$url,"title"=>$title,'original'=>$title]));
+}
+
+
+function GetFileSize($fsize){
+    if($fsize<1024){
+        $str=floor($fsize)." B";
+    }elseif($fsize>=1024&&$fsize<1024*1024){
+        $str=round($fsize/1024,4)." KB";
+    }elseif($fsize>=1024*1024&&$fsize<1024*1024*1024){
+        $str=round($fsize/1024/1024,4)." MB";                
+    }else{
+        $str=round($fsize/1024/1024/1024,4)." GB";
+    }    
+    return $str;
 }
 
 function TimeFormat($timestamp)
@@ -86,6 +111,7 @@ function GetClientIp() {
     }
     return $realip;
 }
+
 //解析GET参数
 function parseParams($get){
     $data=[];

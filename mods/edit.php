@@ -21,8 +21,7 @@ for($i=0;$i<4;$i++){
         if($pos>=count($flags))continue;
         $arr['svg']=XModel::loadSvg($flags[$pos]['icon'],12,12,"#fff");
         $arr['name']=$flags[$pos]['name'];
-        $arr['id']=$flags[$pos]['id'];
-        $flagshtml.=XModel::LoadFrom("modflag","mods",true,$arr);
+        $flagshtml.='<div class="list-group-item" data-id="'.$flags[$pos]['id'].'">'.XModel::LoadFrom("modflag","mods",true,$arr)."</div>";
     }
     $flagshtml.="</div>";
 }

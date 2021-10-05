@@ -7,10 +7,12 @@ $type=I('Type');
 $Action=I('Action');
 $rate=I('FeedbackParameter');
 $url=I('Url');
+$apiv=intval(I('Apiv'));
 $userId=I('UserId');
 $Feedback=I('Feedback');
 $timeID=strtotime(date("Y-m-d"));
 $q=M("stat")->where(['time'=>$timeID])->find();
+
 if(empty($q)){
     M('stat')->add(['times'=>1,'time'=>$timeID]);
 }else{
@@ -51,11 +53,10 @@ function makeItem($name,$downurl,$type,$size,$level,$uid,$downTimes,$nickname,$a
         return sprintf('<Result Name="%s" Url="%s" Type="%s" Size="%s" RatingsAverage="%s" UserId="%s" ExtraText="(%s人次下载, %s上传于%s)" />',$name,$downurl,$type,$size,XModel::getRate($level),$uid,$downTimes,$nickname,date('Y/m/d',$addTime));
     }
 }
-function PrintArray($arr,$page){
+function PrintArray($arr,$page,$apiv){
     using("Crypt");
     using("System/IO/Path");
     $outout='<Results NextCursor="'.($page+1).'">';
-    
     foreach($arr as $k=>$v){
         $uinfo=M('user')->field('user,nickname')->where(['id'=>$v['uid']])->find();
         if(empty($v['fullname'])){
@@ -64,7 +65,7 @@ function PrintArray($arr,$page){
             $urlCode="https://m.schub.top/com/down?data=".Crypt::Encode(json_encode($ydata));
             $outout.=makeItem($p->getFileName(),$urlCode,$p->TypeToSC($v['type']),$v['size'],$v['level'],$v['uid'],$v['downTimes'],$uinfo['nickname'],$v['addTime'],$v['worldType']);
         }else{
-            $modfile=M("moddown")->field('url,name,downTimes,addTime')->where(['uid'=>$v['uid'],'modid'=>$v['id'],'appver'=>['like','%2.2%']])->order("addTime","desc")->find();
+            $modfile=M("moddown")->field('url,name,downTimes,addTime')->where(['uid'=>$v['uid'],'modid'=>$v['id'],'apiv'=>1])->order("addTime","desc")->find();
             if(empty($modfile))continue;
             $ydata=['directory','downTimes',$v['id'],"https://cdn.schub.top".$modfile['url'],"id"=>$v['id']];
             $urlCode="https://m.schub.top/com/down?data=".Crypt::Encode(json_encode($ydata));
@@ -113,5 +114,5 @@ if($where['type']==-1){
     if($SortOrder=='时间')$data=M('directory')->where($where)->order('addTime','desc')->limit($page,15)->select();
     else $data=M('directory')->where($where)->order('rate','desc')->limit($page,15)->select();
 }
-PrintArray($data,$page);
+PrintArray($data,$page,$apiv);
 ?>

@@ -1,23 +1,23 @@
 <!--翻页的布局-->
 <ul class="pagination lv-pagination" style="backgroud:#717171;">
-    <li class="first">
+    <li class="first" style="display:block;">
 		<a href="?page=1"><i class="fa fa-fast-backward" style="line-height:inherit"></i> </a>
 	</li>
-	<li class="">
+	<li style="display:block;">
         <a href="?page={$prevpage}" aria-label="Previous">
             <i class="fa fa-chevron-left" style="line-height:inherit"></i>
         </a>
     </li>
-    <li component="pagination/select-page" onlick="openpage();" class="page select-page">
+    <li style="display:block;" onlick="openpage();" class="page select-page">
 		<a href="#">{$page} / {$total}</a>
 	</li>
 	
-	<li>
+	<li style="display:block;">
         <a href="?page={$nextpage}" data-page="{$nextpage}" aria-label="Next">
             <i class="fa fa-chevron-right" style="line-height:inherit"></i>
         </a>
     </li>
-	<li class="last">
+	<li class="last" style="display:block;">
 		<a href="?page={$total}" data-page="{$total}"><i class="fa fa-fast-forward" style="line-height:inherit"></i> </a>
 	</li>
 	

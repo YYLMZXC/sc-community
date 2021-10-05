@@ -1,16 +1,25 @@
-<h2><a href="/com/mods/mblocklist/{$modid}">返回方块列表</a></h2>
-    <fieldset class="staff_info">
-    <legend>添加方块分类</legend>
-    <form action="/com/mods/addblockcate/{$modid}?do=submit" method="POST" enctype="multipart/form-data">
-    <fieldset class="staff_info">
-    <legend>名称</legend>
-    <input type="text" name="name" placeholder="名称">
-    </fieldset>
-    <fieldset class="staff_info">
-    <legend>Submit</legend>
-    <input type="submit" style="font-size:18px;" value="提交">
-    </fieldset>
-    </form>
-    </fieldset>
-<!--加载layui组件-->
-<script src="/com/res/layui/layui.js" charset="utf-8"></script>
+<ul class="breadcrumb">
+    <li><a href="{$WEBPATH}/mods/list">我的Mod列表</a></li>
+    <li><a href="{$WEBPATH}/mods/list">{$modname}</a></li>
+    <li><a href="{$WEBPATH}/mods/mblocklist/{$modid}">方块Buff列表</a></li>
+    <li class="active">添加分类</li>
+</ul>
+<form action="{$WEBPATH}/mods/addblockcate/{$modid}?do=submit" method="POST" enctype="multipart/form-data">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">名称</h3>
+        </div>
+        <div class="panel-body">
+            <input type="text" class="form-control" name="name" placeholder="名称">
+        </div>
+    </div>
+    
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Submit</h3>
+        </div>
+        <div class="panel-body">
+            <input type="submit" class="btn btn-sm" style="font-size:18px;" value="提交">
+        </div>
+    </div>
+</form>

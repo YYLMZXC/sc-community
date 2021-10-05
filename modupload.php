@@ -4,19 +4,29 @@ if(!S('uid')){
 }else{
     using("System/IO/Upload");
     using("System/IO/Path");
-    $up=new Upload();
-    $up->setHost("");
-    $up->setNeedDelPath("/www/wwwroot/cdn.aijiajia.xyz/");
-    $up->setAcceptType(['*']);
-    $res=$up->save($_FILES['file'],"/www/wwwroot/cdn.aijiajia.xyz/modsfile");
-    if($res['code']>0)PR(0,$res['msg']);
-    else{
-        $p=new Path($res['name']);
-        $type=$p->getExtension();
-        if($type!=".zip"&&$type!='.scmod'&&$type!='.scbtex'&&$type!='.dae'&&$type!='.apk'){
-            unlink($res['filepath']);
-            PR(0,"不支持该文件格式的上传");
-        }
-        PR(1,"上传成功",["_extra"=>['url'=>$res['downUrl'],'size'=>$res['rsize'],'name'=>$res['name'],'type'=>$type]]);
+    $startLen=I('startlen');
+    $endlen=I('endlen');
+    $totallen=I('totallen');
+    $filename=I('fileName');
+    $fileext=I("fileExt");
+    if($fileext!="zip"&&$fileext!='scmod'&&$fileext!='scbtex'&&$fileext!='dae'&&$fileext!='apk'){
+        PR(0,"不支持该文件格式的上传".$fileext);
+    }
+    $abpath="/www/wwwroot/cdn.aijiajia.xyz";//绝对路径
+    $filedir="/modsfile/".date("Y/m/d");//相对路径
+    $downurl=$filedir."/".$filename.".".$fileext;//下载路径
+    $filepath=$abpath.$downurl;//文件绝对路径
+    if(!is_dir($abpath.$filedir))mkdir($abpath.$filedir,0777,true);
+    if(file_exists($filepath))$f=fopen($filepath,"r+");
+    else $f=fopen($filepath,"x+");
+    fseek($f,$startLen);
+    fwrite($f,file_get_contents($_FILES['file']['tmp_name']));
+    fclose($f);
+    unlink($_FILES['file']['tmp_name']);
+    if($_FILES['file']['code']>0)PR(0,$res['msg']);
+    else if($totallen!=$endlen){
+        PR(1,"Succ");
+    }else{
+        PR(2,"上传成功",["_extra"=>['url'=>$downurl,'size'=>filesize($filepath),'name'=>$filename,'type'=>$fileext]]);
     }
 }

@@ -30,5 +30,5 @@ XModel::Set("q","输入搜索关键字");
 
 if(!empty($q))XModel::Set("q",$q);
 $container=XModel::Load("viewlist","mods");
-$container.=XModel::pageHtml(XModel::Get("WEBPATH")."/mods/viewlist",$page,$total);
+$container.=XModel::pageHtml(XModel::Get("WEBPATH")."/mods/viewlist?q=".$q,$page,$total);
 XModel::SetContent($container);

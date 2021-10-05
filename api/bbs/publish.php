@@ -6,7 +6,7 @@ $id=intval(I("cid"));
 if(empty(S('uid')))PR(300,"请先登录");
 else if(empty($id)){
     PR(300,'错误的参数');
-}else if(empty($title)||empty($content)){
+}else if(empty($title)||empty(strip_tags($content))){
     PR(300,'标题或内容不能为空');
 }else if(strlen($content)<10){
     PR(300,'内容长度不能小于10字');

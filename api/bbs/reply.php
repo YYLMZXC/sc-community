@@ -11,13 +11,14 @@ $rid = intval(I("rid"));
 $type=intval(I('type'));
 $rrid=intval(I('rrid'));
 function getMsg($str){
+    $str=strip_tags($str);
     if(mb_strlen($str,"utf-8")<15)return $str;
     else return mb_substr($str,0,15,"utf-8")."...";
 }
 if(XModel::getPublishToken()!=I('token')){
     PR(300,'token校验失败，请刷新重试!');
 }
-if (empty($content) || (empty($rid) && empty($bid))) {
+if (empty(strip_tags($content)) || (empty($rid) && empty($bid))) {
     PR(300, "参数不可以为空!");
 } else {
     if ($type==1) {

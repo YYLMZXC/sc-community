@@ -4,17 +4,17 @@
     $nickname=I('nickname');
     $repass=I('repass');
     $email=I('email');
-    if(strlen($user)>16){
-        PR(300,"用户名最长不能超过16位");
+    if(!XModel::isEmail($email)){
+        PR(300,"邮箱格式不正确，请检查重新填写");
+    }
+    if(strlen($user)>16||strlen($pass)>16){
+        PR(300,"用户名或密码最长不能超过16位");
     }
     if(strlen($pass)<6||strlen($user)<6){
         PR(300,"用户名或密码长度不能小于6位");
     }
     if(!preg_match('/^[a-zA-Z0-9]+$/u',$user)){
         PR(300,"账号只能由字母和数字构成");
-    }
-    if(!XModel::isEmail($email)){
-        PR(300,"邮箱格式不正确，请检查重新填写");
     }
     if($pass!=$repass){
         PR(300,"两次密码不一致，请检查重新填写");

@@ -5,7 +5,7 @@ $gid=intval($urlparams['_p0']);
 if($type==0)XModel::error('参数错误');
 else if($type==1){//删除整个Mods
     $modid=$gid;
-    $check=M('modrelease')->where(['modid'=>$modid])->find();
+    $check=M('modlist')->where(['id'=>$modid])->find();
     if(empty($check))XModel::error("已删除或不存在的记录");
     //获得文件并删除
     $downlist=M("moddown")->where(['modid'=>$modid])->select();
@@ -28,6 +28,10 @@ else if($type==1){//删除整个Mods
 }else if($type==2){//删除一条更新日志
     $rid=$gid;
     $modid=0;
+    $tt=M("modrelease")->where(['id'=>$rid])->find();//删除更新日志
+    if($tt['uid']!=S('uid'))XModel::error('你没有操作权限');
+    if($tt==false)XModel::error("已删除或不存在的记录");
+    $modid=$tt['modid'];
     $downlist=M("moddown")->where(['descid'=>$rid])->select();
     foreach($downlist as $k=>$v){
         if($v['uid']!=S('uid'))XModel::error('你没有操作权限');
@@ -40,9 +44,6 @@ else if($type==1){//删除整个Mods
         }
         M('moddown')->where(['id'=>$v['id']])->delete();//删除文件记录
     }
-    $tt=M("modrelease")->where(['id'=>$rid])->find();//删除更新日志
-    $modid=$tt['modid'];
-    if($tt['uid']!=S('uid'))XModel::error('你没有操作权限');
     M("modrelease")->where(['id'=>$rid])->delete();//删除更新日志
     XModel::success("删除成功","/com/mods/desclist/{$modid}","返回更新日志列表");
 }else if($type==3){//删除更新日志的文件
